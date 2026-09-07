@@ -1,5 +1,6 @@
 book_filename: "Analyzing-Biological-Processes-Over-Time"
 delete_merged_file: true
+output_dir: "docs"
 
 repo: "https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time"
 
