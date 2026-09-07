@@ -6,10 +6,10 @@ repo: "https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time
 rmd_files:
   - "index.Rmd"
   - "01-pre-workshop.Rmd"
-  - "02-introduction"
-  - "03-polynomial"
-  - "04-beta-reg"
-  - "05-references"
+  - "02-introduction.Rmd"
+  - "03-polynomial.Rmd"
+  - "04-beta-reg.Rmd"
+  - "05-references.Rmd"
 
 language:
   ui:

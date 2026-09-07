@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Hands-on: Beta regression | Analyzing Biological Processes Over Time</title>
+  <meta name="description" content="Chapter 5 Hands-on: Beta regression | Analyzing Biological Processes Over Time" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Hands-on: Beta regression | Analyzing Biological Processes Over Time" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Hands-on: Beta regression | Analyzing Biological Processes Over Time" />
+  
+  
+  
+
+<meta name="author" content="Claudio D. Silva Jr" />
+
+
+<meta name="date" content="2026-09-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="hands-on-polynomial-regression.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to the workshop!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-will-you-learn"><i class="fa fa-check"></i><b>1.1</b> What will you learn?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#workshop-schedule"><i class="fa fa-check"></i><b>1.2</b> Workshop schedule:</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="pre-workshop.html"><a href="pre-workshop.html"><i class="fa fa-check"></i><b>2</b> Pre-workshop</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pre-workshop.html"><a href="pre-workshop.html#how-to-make-the-most-of-this-workshop"><i class="fa fa-check"></i><b>2.1</b> How to make the most of this workshop?</a></li>
+<li class="chapter" data-level="2.2" data-path="pre-workshop.html"><a href="pre-workshop.html#things-to-keep-in-mind"><i class="fa fa-check"></i><b>2.2</b> Things to keep in mind:</a></li>
+<li class="chapter" data-level="2.3" data-path="pre-workshop.html"><a href="pre-workshop.html#notation-guide"><i class="fa fa-check"></i><b>2.3</b> Notation guide</a></li>
+<li class="chapter" data-level="2.4" data-path="pre-workshop.html"><a href="pre-workshop.html#glossary"><i class="fa fa-check"></i><b>2.4</b> Glossary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html"><i class="fa fa-check"></i><b>3</b> Introduction and applied example</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#lets-work-together"><i class="fa fa-check"></i><b>3.1</b> Let’s work together</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#modeling-biological-processes-in-time"><i class="fa fa-check"></i><b>3.2</b> Modeling biological processes in time</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#polynomial-regression"><i class="fa fa-check"></i><b>3.2.1</b> Polynomial regression</a></li>
+<li class="chapter" data-level="3.2.2" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#beta-regression"><i class="fa fa-check"></i><b>3.2.2</b> Beta regression</a></li>
+<li class="chapter" data-level="3.2.3" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#logistic-disease-progress-curve"><i class="fa fa-check"></i><b>3.2.3</b> Logistic Disease Progress Curve</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#applying-the-logistic-disease-progress-curve-to-our-example"><i class="fa fa-check"></i><b>3.3</b> Applying the logistic disease progress curve to our example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="hands-on-polynomial-regression.html"><a href="hands-on-polynomial-regression.html"><i class="fa fa-check"></i><b>4</b> Hands-on: Polynomial regression</a></li>
+<li class="chapter" data-level="5" data-path="hands-on-beta-regression.html"><a href="hands-on-beta-regression.html"><i class="fa fa-check"></i><b>5</b> Hands-on: Beta regression</a></li>
+<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyzing Biological Processes Over Time</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="hands-on-beta-regression" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Hands-on: Beta regression<a href="hands-on-beta-regression.html#hands-on-beta-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>This is the model we will be working with:</p>
+<p><span class="math display">\[y_{ijk}\mid b_k \sim Beta(\mu_{ijk}, \phi) \\[10 pt] \mu_{ijk} = \eta^{-1}_{ijk} = \frac{1}{1+e^{-(\beta_{0i} + \beta_{1i}t_j + b_k)}} \\[10pt] b_k \sim N(0, \sigma^2_b)\]</span></p>
+<p>We can also denote the link function as:</p>
+<p><span class="math display">\[\eta_{ijk} = g(\mu_{ijk}) = log(\frac{\mu_{ijk}}{1-\mu_{ijk}}) = logit(\mu_{ijk})\]</span></p>
+<p>Where the response mean is modeled as a function of the <em>i</em>th level of the fungicide treatment at the <em>j</em>th day, with a random deviation caused by the <em>k</em>th block.</p>
+<p>Here we are treating block as a random effect, which means that our observed blocks are a sample from a larger group (population) of blocks, and that the block effect causes a random deviation in our response mean. In the model, <span class="math inline">\(y \mid b\)</span> indicates conditional distribution, in other words, the distribution of <span class="math inline">\(y\)</span> after we fix/observe a level of block <span class="math inline">\(b\)</span>.</p>
+<p>More about it here: <a href="https://www.k-state.edu/digital-ag-advanced-analytics/events/linear-mixed-models-2026.html">Fundamentals of Linear Mixed Models for Designed Experiments</a></p>
+<p>You can also learn more about Generalized Linear Models (GLMs) here: <span class="citation">Stroup et al. (2024)</span></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="hands-on-beta-regression.html#cb14-1" tabindex="-1"></a><span class="co"># Packages</span></span>
+<span id="cb14-2"><a href="hands-on-beta-regression.html#cb14-2" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># Reading excel files</span></span>
+<span id="cb14-3"><a href="hands-on-beta-regression.html#cb14-3" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># Wrangling</span></span>
+<span id="cb14-4"><a href="hands-on-beta-regression.html#cb14-4" tabindex="-1"></a><span class="fu">library</span>(msm) <span class="co"># Delta method</span></span>
+<span id="cb14-5"><a href="hands-on-beta-regression.html#cb14-5" tabindex="-1"></a><span class="fu">library</span>(lme4) <span class="co"># Linear mixed models</span></span>
+<span id="cb14-6"><a href="hands-on-beta-regression.html#cb14-6" tabindex="-1"></a><span class="fu">library</span>(emmeans) <span class="co"># emmeans for mult comp</span></span>
+<span id="cb14-7"><a href="hands-on-beta-regression.html#cb14-7" tabindex="-1"></a><span class="fu">library</span>(glmmTMB) <span class="co"># beta regression / glmm</span></span>
+<span id="cb14-8"><a href="hands-on-beta-regression.html#cb14-8" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="hands-on-beta-regression.html#cb14-9" tabindex="-1"></a><span class="co"># Read the data</span></span>
+<span id="cb14-10"><a href="hands-on-beta-regression.html#cb14-10" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Example_df1.xlsx&quot;</span>)</span>
+<span id="cb14-11"><a href="hands-on-beta-regression.html#cb14-11" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="hands-on-beta-regression.html#cb14-12" tabindex="-1"></a><span class="co"># Control trt factor order</span></span>
+<span id="cb14-13"><a href="hands-on-beta-regression.html#cb14-13" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb14-14"><a href="hands-on-beta-regression.html#cb14-14" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb14-15"><a href="hands-on-beta-regression.html#cb14-15" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">as.factor</span>(trt),</span>
+<span id="cb14-16"><a href="hands-on-beta-regression.html#cb14-16" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">fct_relevel</span>(trt, <span class="fu">c</span>(<span class="st">&quot;UN&quot;</span>, <span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>)))</span>
+<span id="cb14-17"><a href="hands-on-beta-regression.html#cb14-17" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="hands-on-beta-regression.html#cb14-18" tabindex="-1"></a><span class="co"># Fit the model</span></span>
+<span id="cb14-19"><a href="hands-on-beta-regression.html#cb14-19" tabindex="-1"></a>m3 <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(y <span class="sc">~</span> trt<span class="sc">*</span>day <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>block), <span class="at">data =</span> df, <span class="at">family =</span> <span class="fu">beta_family</span>(<span class="at">link =</span> <span class="st">&quot;logit&quot;</span>))</span>
+<span id="cb14-20"><a href="hands-on-beta-regression.html#cb14-20" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="hands-on-beta-regression.html#cb14-21" tabindex="-1"></a><span class="co"># Check model parameters</span></span>
+<span id="cb14-22"><a href="hands-on-beta-regression.html#cb14-22" tabindex="-1"></a><span class="fu">summary</span>(m3)</span>
+<span id="cb14-23"><a href="hands-on-beta-regression.html#cb14-23" tabindex="-1"></a></span>
+<span id="cb14-24"><a href="hands-on-beta-regression.html#cb14-24" tabindex="-1"></a><span class="co"># Obtain predictions + plot</span></span>
+<span id="cb14-25"><a href="hands-on-beta-regression.html#cb14-25" tabindex="-1"></a>pred_df3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-26"><a href="hands-on-beta-regression.html#cb14-26" tabindex="-1"></a>  <span class="at">trt =</span> <span class="fu">as.factor</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;UN&quot;</span>, <span class="dv">60</span>), <span class="fu">rep</span>(<span class="st">&quot;F1&quot;</span>, <span class="dv">60</span>), <span class="fu">rep</span>(<span class="st">&quot;F2&quot;</span>, <span class="dv">60</span>))),</span>
+<span id="cb14-27"><a href="hands-on-beta-regression.html#cb14-27" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">60</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="dv">3</span>)))</span>
+<span id="cb14-28"><a href="hands-on-beta-regression.html#cb14-28" tabindex="-1"></a></span>
+<span id="cb14-29"><a href="hands-on-beta-regression.html#cb14-29" tabindex="-1"></a>pred_df3<span class="sc">$</span>trt <span class="ot">&lt;-</span> <span class="fu">fct_relevel</span>(pred_df3<span class="sc">$</span>trt, <span class="fu">c</span>(<span class="st">&quot;UN&quot;</span>, <span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>))</span>
+<span id="cb14-30"><a href="hands-on-beta-regression.html#cb14-30" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="hands-on-beta-regression.html#cb14-31" tabindex="-1"></a>pred_df3<span class="sc">$</span>pred_l <span class="ot">&lt;-</span> <span class="fu">predict</span>(m3, <span class="at">newdata =</span> pred_df3, <span class="at">re.form =</span> <span class="cn">NA</span>, <span class="at">type =</span> <span class="st">&quot;link&quot;</span>) <span class="co"># link scale</span></span>
+<span id="cb14-32"><a href="hands-on-beta-regression.html#cb14-32" tabindex="-1"></a>pred_df3<span class="sc">$</span>pred_p <span class="ot">&lt;-</span> <span class="fu">predict</span>(m3, <span class="at">newdata =</span> pred_df3, <span class="at">re.form =</span> <span class="cn">NA</span>, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) <span class="co"># response scale</span></span>
+<span id="cb14-33"><a href="hands-on-beta-regression.html#cb14-33" tabindex="-1"></a></span>
+<span id="cb14-34"><a href="hands-on-beta-regression.html#cb14-34" tabindex="-1"></a><span class="fu">ggplot</span>(pred_df3, <span class="fu">aes</span>(day, pred_p, <span class="at">colour =</span> trt, <span class="at">group =</span> trt)) <span class="sc">+</span></span>
+<span id="cb14-35"><a href="hands-on-beta-regression.html#cb14-35" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb14-36"><a href="hands-on-beta-regression.html#cb14-36" tabindex="-1"></a><span class="co">#  geom_point(aes(day, pred_l, colour = trt)) +</span></span>
+<span id="cb14-37"><a href="hands-on-beta-regression.html#cb14-37" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;turquoise4&quot;</span>, <span class="st">&quot;#8B0000&quot;</span>, <span class="st">&quot;green4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb14-38"><a href="hands-on-beta-regression.html#cb14-38" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb14-39"><a href="hands-on-beta-regression.html#cb14-39" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Severity (Prop.)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Days&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;Treatment&quot;</span>)</span>
+<span id="cb14-40"><a href="hands-on-beta-regression.html#cb14-40" tabindex="-1"></a></span>
+<span id="cb14-41"><a href="hands-on-beta-regression.html#cb14-41" tabindex="-1"></a><span class="co"># Slope</span></span>
+<span id="cb14-42"><a href="hands-on-beta-regression.html#cb14-42" tabindex="-1"></a></span>
+<span id="cb14-43"><a href="hands-on-beta-regression.html#cb14-43" tabindex="-1"></a><span class="do">## We can compare the slope on the link scale:</span></span>
+<span id="cb14-44"><a href="hands-on-beta-regression.html#cb14-44" tabindex="-1"></a>slopes_link <span class="ot">&lt;-</span> <span class="fu">emtrends</span>(m3, <span class="sc">~</span> trt, <span class="at">var =</span> <span class="st">&quot;day&quot;</span>)</span>
+<span id="cb14-45"><a href="hands-on-beta-regression.html#cb14-45" tabindex="-1"></a><span class="fu">pairs</span>(slopes_link)</span>
+<span id="cb14-46"><a href="hands-on-beta-regression.html#cb14-46" tabindex="-1"></a></span>
+<span id="cb14-47"><a href="hands-on-beta-regression.html#cb14-47" tabindex="-1"></a>slopes3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(slopes_link)</span>
+<span id="cb14-48"><a href="hands-on-beta-regression.html#cb14-48" tabindex="-1"></a></span>
+<span id="cb14-49"><a href="hands-on-beta-regression.html#cb14-49" tabindex="-1"></a><span class="do">## We can also find the max slopes at the response scale, and compare then. As a shortcut, here the maximum occurs at mu = 0.5 (this max slope is also a derived quantity).</span></span>
+<span id="cb14-50"><a href="hands-on-beta-regression.html#cb14-50" tabindex="-1"></a>der_df3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-51"><a href="hands-on-beta-regression.html#cb14-51" tabindex="-1"></a>  <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;UN&quot;</span>, <span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>),</span>
+<span id="cb14-52"><a href="hands-on-beta-regression.html#cb14-52" tabindex="-1"></a>  <span class="at">y_inf =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>),</span>
+<span id="cb14-53"><a href="hands-on-beta-regression.html#cb14-53" tabindex="-1"></a>  <span class="at">x_inf =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fu">fixef</span>(m3)<span class="sc">$</span>cond[<span class="dv">1</span>]<span class="sc">/</span>slopes3<span class="sc">$</span>day.trend[<span class="dv">1</span>], <span class="sc">-</span>(<span class="fu">fixef</span>(m3)<span class="sc">$</span>cond[<span class="dv">1</span>]<span class="sc">+</span><span class="fu">fixef</span>(m3)<span class="sc">$</span>cond[<span class="dv">2</span>])<span class="sc">/</span>slopes3<span class="sc">$</span>day.trend[<span class="dv">2</span>], <span class="sc">-</span>(<span class="fu">fixef</span>(m3)<span class="sc">$</span>cond[<span class="dv">1</span>]<span class="sc">+</span><span class="fu">fixef</span>(m3)<span class="sc">$</span>cond[<span class="dv">3</span>])<span class="sc">/</span>slopes3<span class="sc">$</span>day.trend[<span class="dv">3</span>]),</span>
+<span id="cb14-54"><a href="hands-on-beta-regression.html#cb14-54" tabindex="-1"></a>  <span class="at">max_s =</span> <span class="fu">c</span>(slopes3<span class="sc">$</span>day.trend[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">4</span>, slopes3<span class="sc">$</span>day.trend[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">4</span>, slopes3<span class="sc">$</span>day.trend[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>),</span>
+<span id="cb14-55"><a href="hands-on-beta-regression.html#cb14-55" tabindex="-1"></a>  <span class="at">se =</span> <span class="fu">c</span>(slopes3<span class="sc">$</span>SE[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">4</span>, slopes3<span class="sc">$</span>SE[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">4</span>, slopes3<span class="sc">$</span>SE[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>),</span>
+<span id="cb14-56"><a href="hands-on-beta-regression.html#cb14-56" tabindex="-1"></a>  <span class="at">CI.lb =</span> <span class="fu">c</span>(slopes3<span class="sc">$</span>asymp.LCL[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">4</span>, slopes3<span class="sc">$</span>asymp.LCL[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">4</span>, slopes3<span class="sc">$</span>asymp.LCL[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>),</span>
+<span id="cb14-57"><a href="hands-on-beta-regression.html#cb14-57" tabindex="-1"></a>  <span class="at">CI.ub =</span> <span class="fu">c</span>(slopes3<span class="sc">$</span>asymp.UCL[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">4</span>, slopes3<span class="sc">$</span>asymp.UCL[<span class="dv">2</span>]<span class="sc">/</span><span class="dv">4</span>, slopes3<span class="sc">$</span>asymp.UCL[<span class="dv">3</span>]<span class="sc">/</span><span class="dv">4</span>)</span>
+<span id="cb14-58"><a href="hands-on-beta-regression.html#cb14-58" tabindex="-1"></a>)</span>
+<span id="cb14-59"><a href="hands-on-beta-regression.html#cb14-59" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="hands-on-beta-regression.html#cb14-60" tabindex="-1"></a><span class="do">### Max slope contrast</span></span>
+<span id="cb14-61"><a href="hands-on-beta-regression.html#cb14-61" tabindex="-1"></a>cont_s3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb14-62"><a href="hands-on-beta-regression.html#cb14-62" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">&quot;UN-F1&quot;</span>, <span class="st">&quot;UN-F2&quot;</span>, <span class="st">&quot;F1-F2&quot;</span>),</span>
+<span id="cb14-63"><a href="hands-on-beta-regression.html#cb14-63" tabindex="-1"></a>  <span class="at">z =</span> <span class="fu">c</span>(</span>
+<span id="cb14-64"><a href="hands-on-beta-regression.html#cb14-64" tabindex="-1"></a>    </span>
+<span id="cb14-65"><a href="hands-on-beta-regression.html#cb14-65" tabindex="-1"></a>    (der_df3<span class="sc">$</span>max_s[<span class="dv">1</span>] <span class="sc">-</span> der_df3<span class="sc">$</span>max_s[<span class="dv">2</span>])<span class="sc">/</span>(<span class="fu">deltamethod</span>(<span class="sc">~</span> x4<span class="sc">/</span><span class="dv">4</span> <span class="sc">-</span> (x4<span class="sc">+</span>x5)<span class="sc">/</span><span class="dv">4</span>, <span class="fu">fixef</span>(m3)<span class="sc">$</span>cond, <span class="fu">vcov</span>(m3)<span class="sc">$</span>cond)),</span>
+<span id="cb14-66"><a href="hands-on-beta-regression.html#cb14-66" tabindex="-1"></a>    </span>
+<span id="cb14-67"><a href="hands-on-beta-regression.html#cb14-67" tabindex="-1"></a>    (der_df3<span class="sc">$</span>max_s[<span class="dv">1</span>] <span class="sc">-</span> der_df3<span class="sc">$</span>max_s[<span class="dv">3</span>])<span class="sc">/</span>(<span class="fu">deltamethod</span>(<span class="sc">~</span> x4<span class="sc">/</span><span class="dv">4</span> <span class="sc">-</span> (x4<span class="sc">+</span>x6)<span class="sc">/</span><span class="dv">4</span>, <span class="fu">fixef</span>(m3)<span class="sc">$</span>cond, <span class="fu">vcov</span>(m3)<span class="sc">$</span>cond)),</span>
+<span id="cb14-68"><a href="hands-on-beta-regression.html#cb14-68" tabindex="-1"></a>    </span>
+<span id="cb14-69"><a href="hands-on-beta-regression.html#cb14-69" tabindex="-1"></a>    (der_df3<span class="sc">$</span>max_s[<span class="dv">2</span>] <span class="sc">-</span> der_df3<span class="sc">$</span>max_s[<span class="dv">3</span>])<span class="sc">/</span>(<span class="fu">deltamethod</span>(<span class="sc">~</span> (x4<span class="sc">+</span>x5)<span class="sc">/</span><span class="dv">4</span> <span class="sc">-</span> (x4<span class="sc">+</span>x6)<span class="sc">/</span><span class="dv">4</span>, <span class="fu">fixef</span>(m3)<span class="sc">$</span>cond, <span class="fu">vcov</span>(m3)<span class="sc">$</span>cond))</span>
+<span id="cb14-70"><a href="hands-on-beta-regression.html#cb14-70" tabindex="-1"></a>    </span>
+<span id="cb14-71"><a href="hands-on-beta-regression.html#cb14-71" tabindex="-1"></a>  )</span>
+<span id="cb14-72"><a href="hands-on-beta-regression.html#cb14-72" tabindex="-1"></a>)</span>
+<span id="cb14-73"><a href="hands-on-beta-regression.html#cb14-73" tabindex="-1"></a></span>
+<span id="cb14-74"><a href="hands-on-beta-regression.html#cb14-74" tabindex="-1"></a>cont_s3<span class="sc">$</span>p.value <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(cont_s3<span class="sc">$</span>z), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-75"><a href="hands-on-beta-regression.html#cb14-75" tabindex="-1"></a></span>
+<span id="cb14-76"><a href="hands-on-beta-regression.html#cb14-76" tabindex="-1"></a><span class="co"># Predicted disease severity at day 60</span></span>
+<span id="cb14-77"><a href="hands-on-beta-regression.html#cb14-77" tabindex="-1"></a>pred60_3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">emmeans</span>(m3, <span class="sc">~</span> trt <span class="sc">|</span> day, <span class="at">at =</span> <span class="fu">list</span>(<span class="at">day =</span> <span class="dv">60</span>), <span class="at">type =</span> <span class="st">&quot;response&quot;</span>))</span>
+<span id="cb14-78"><a href="hands-on-beta-regression.html#cb14-78" tabindex="-1"></a></span>
+<span id="cb14-79"><a href="hands-on-beta-regression.html#cb14-79" tabindex="-1"></a><span class="fu">ggplot</span>(pred60_3, <span class="fu">aes</span>(trt, response, <span class="at">colour =</span> trt)) <span class="sc">+</span></span>
+<span id="cb14-80"><a href="hands-on-beta-regression.html#cb14-80" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-81"><a href="hands-on-beta-regression.html#cb14-81" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> asymp.LCL, <span class="at">ymax =</span> asymp.UCL), <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb14-82"><a href="hands-on-beta-regression.html#cb14-82" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;turquoise4&quot;</span>, <span class="st">&quot;#8B0000&quot;</span>, <span class="st">&quot;green4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb14-83"><a href="hands-on-beta-regression.html#cb14-83" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Severity (Prop.) at day 60&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Treatments&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;Treatment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb14-84"><a href="hands-on-beta-regression.html#cb14-84" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+</details>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="hands-on-polynomial-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": null,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Analyzing-Biological-Processes-Over-Time.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

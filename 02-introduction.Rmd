@@ -367,7 +367,7 @@ ggplot(pred_df, aes(day, pred, colour = trt, group = trt)) +
 
 **How many units of y are increasing per day for each curve at the maximum growth point**[^02-introduction-5]?
 
-[^02-introduction-5]: **The LDPC has a different slope at every time, but it reaches a maximum in** $\frac{K}{2}$.
+[^02-introduction-5]: The LDPC has a different slope at every time, but it reaches a maximum in $\frac{K}{2}$.
 
 $$\frac{Kr}{4}$$
 
