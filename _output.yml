@@ -1,0 +1,10 @@
+bookdown::gitbook:
+  code_folding: hide
+  config:
+    toc:
+      collapse: section
+    sharing: null
+    download: ["pdf"]
+
+bookdown::pdf_book:
+  latex_engine: xelatex

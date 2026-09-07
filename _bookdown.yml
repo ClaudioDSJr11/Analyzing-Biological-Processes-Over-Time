@@ -1,0 +1,14 @@
+book_filename: "Analyzing-Biological-Processes-Over-Time"
+delete_merged_file: true
+
+rmd_files:
+  - "index.Rmd"
+  - "01-pre-workshop.Rmd"
+  - "02-introduction"
+  - "03-polynomial"
+  - "04-beta-reg"
+  - "05-references"
+
+language:
+  ui:
+    chapter_name: "Chapter "

@@ -1,0 +1,35 @@
+---
+title: "Analyzing Biological Processes Over Time"
+subtitle: "From Field Observations to Decisions"
+author: "Claudio D. Silva Jr"
+date: "09/09/2026"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: references.bib
+---
+
+# Welcome to the workshop!
+
+## What will you learn?
+
+- Recognize three approaches for modeling disease progression over time.
+
+- Experiment with these approaches and learn their basics.
+
+- Obtain and interpret quantities of biological interest.
+
+- Compare what can (and cannot) be learned from each approach.
+
+<br><br>
+
+## Workshop schedule:
+
+10 minutes - Introduction
+
+10 minutes - Comparing the methods
+
+20 minutes - Guided example
+
+20 minutes - Hands-on
+
+20 minutes - Discussion

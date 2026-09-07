@@ -1,0 +1,119 @@
+# Pre-workshop
+
+## How to make the most of this workshop?
+
+- Ask questions! Do not take unresolved doubts home, they stink!
+
+- Use the material afterwards. This material was created to be used as a guide post workshop, use it!
+
+- Code is important, but our focus today is on concepts and interpretation. The code is provided so you can focus on understanding what the models are doing.
+
+<br><br>
+
+## Things to keep in mind:
+
+- This is an introduction, and therefore the focus is you having experience with these models and what they can produce.
+
+- Our example data are considerably well behaved. Real disease progress data can be much messier. We will discuss some of these complications, but solving them is beyond today's scope.
+
+- Coding is not our focus in this workshop, all code is provided. We will focus on three different models and their results.
+
+- Please, keep in mind we have future workshops that expand in different parts of this workshop:
+
+  - Fundamentals of linear mixed models for designed experiments -\> 09/19 and 09/20
+
+    - Registration open: [Fundamentals of Linear Mixed Models for Designed Experiments](https://www.k-state.edu/digital-ag-advanced-analytics/events/linear-mixed-models-2026.html)
+
+  - Nonlinear models for the plant sciences -\> Spring 2027
+
+    - Material from 2026 available online: [Nonlinear Models for the Plant Sciences](https://claudiodsjr11.github.io/Nonlinear-Models-for-the-Plant-Sciences/index.html)
+
+<br><br>
+
+## Notation guide
+
+We can write the same linear model using different notations, but preserving the same meaning. In this workshop, we will primarily use scalar and probabilistic notation for clarity. Vector and matrix notation are included here for reference. All notations below assume normally distributed errors.
+
+$$ \varepsilon_i \sim N(0, \sigma^2) $$
+
+The Multivariate Normal distribution (MVN) is a compact way to represent multiple normally distributed observations together. This distribution shows up when we pile multiple random variables together in vector and matrix notation.
+
+<br><br>
+
+Scalar notation - Represents a single number
+
+$$ y_i = \beta_0 + \beta_1*x_i + \varepsilon_i \\ \varepsilon_i \sim N(0, \sigma^2) $$
+
+Where:
+
+- $\beta_0$ represents the intercept, the value of $y_i$ when $x_i = 0$;
+
+- $\beta_1$ represents the slope, the change in $y_i$ caused by changing one unit in $x_i$;
+
+- $\varepsilon_i$ represents the residual, which we assume to arise from a normal distribution with mean/expectation 0 and variance $\sigma^2$;
+
+- $y_i$ represents the response variable and $x_i$ represents the predictor variable.
+
+<br><br>
+
+Vector notation - Represents a vector of numbers
+
+$$ \mathbf{y} = \beta_0\mathbf{1} + \beta_1*\mathbf{x}+\boldsymbol{\varepsilon} \\[10pt] \begin{bmatrix} y_1 \\ y_2 \\ ... \\ y_n \end{bmatrix} = \beta_0 * \begin{bmatrix} 1 \\ 1 \\ ... \\ 1 \end{bmatrix} + \beta_1*\begin{bmatrix} x_1 \\ x_2 \\ ... \\ x_n \end{bmatrix} + \begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ ... \\ \varepsilon_n \end{bmatrix} \\[15pt] \boldsymbol{\varepsilon} \sim MVN(\mathbf{0}, \sigma^2\mathbf{I}) $$
+
+Here, the variance $\sigma^2\mathbf{I}$ represents the variance covariance matrix, where $\mathbf{I}$ is the identity matrix. For example, for a 3x3 identity matrix, this is how it looks like:
+
+$$\sigma^2\begin{bmatrix} 1 \ 0 \ 0 \\ 0 \ 1 \ 0 \\ 0 \ 0 \ 1 \end{bmatrix}$$
+
+With this matrix, we assume no correlation between our observed $y_i$, in other words, independence. This can change by changing the matrix selected. A more general notation is $\sigma^2\mathbf{\Sigma}$, where $\mathbf{\Sigma}$ represents a general matrix.
+
+<br><br>
+
+Matrix notation - Represents a matrix
+
+$$ \mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon} \\ \boldsymbol{\varepsilon} \sim MVN(\mathbf{0}, \sigma^2\mathbf{I})  $$
+
+<br><br>
+
+Probabilistic notation - Represents the distribution that we are assuming, a clear way to make our assumptions transparent. The expected value, or mean, can be expressed using any of the previous notations. To follow the same structure of the workshop, scalar notation will be exemplified.
+
+In distributional notation, see how we demonstrate that the deterministic mathematical equation influences the expectation/mean. The variance corresponds to the error term previously introduced as $\varepsilon_i \sim N(0, \sigma^2)$.
+
+This notation reads: Observations $y_i$ arise from a normal distribution with the expectation/mean $\mu_i$ controlled by our mathematical equation and a given variance $\sigma^2$. This variance relates to the observational level variance.
+
+This notation emphasizes that the model is a statement about how data are generated, combining a deterministic structure with stochastic variability.
+
+$$ y_i \sim N(\mu_i, \sigma^2) \\ \mu_i = \beta_0 + \beta_1*x_i $$
+
+<br><br>
+
+<center>Models are Assumptions + Structure + Uncertainty!</center>
+
+<br><br>
+
+## Glossary
+
+Expectation = Mean - Where the distribution balances.
+
+Uncertainty = Degree of doubt or unpredictability - How unsure we are about that estimated value. Can refer to predictions or parameters.
+
+Estimation = The process of obtaining numerical values for the unknown quantities (parameters) of a model from observed data.
+
+Inference = Interpreting estimated parameters in the context of the population or data-generating process (model). Inference is made about non-observable quantities and involves quantifying uncertainty.
+
+Prediction = New data generated by the model, given covariates. A function of the model and stochastic variability.
+
+Data generating process = Process that we believe to generate our data. Involves mathematical model + stochastic component.
+
+Deterministic = Always produces the same result, not random.
+
+Stochastic = Random.
+
+Constraint = A restriction or boundary placed on model parameters. Often based on biological, physical, or logical consideration.
+
+Random variable = Numerical value arising from a probability distribution. Formally: A function that connects the outcome of a random experiment to real numbers.
+
+Support of a probability distribution = Values a random variable arising from this distribution can assume.
+
+Probability distribution = Mathematical description of the probabilities of events/results from a given sample space (all possible outcomes of a random experiment).
+
+<br><br>
