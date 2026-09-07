@@ -33,3 +33,8 @@ bibliography: references.bib
 20 minutes - Hands-on
 
 20 minutes - Discussion
+
+<br><br>
+
+The complete workshop material, code, and data are available on
+[GitHub](ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time).
