@@ -36,5 +36,4 @@ bibliography: references.bib
 
 <br><br>
 
-The complete workshop material, code, and data are available on
-[GitHub](ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time).
+The complete workshop material, code, and data are available on [GitHub](https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time).
