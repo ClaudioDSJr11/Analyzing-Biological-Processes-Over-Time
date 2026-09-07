@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Introduction and applied example | Analyzing Biological Processes Over Time</title>
+  <meta name="description" content="Chapter 3 Introduction and applied example | Analyzing Biological Processes Over Time" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Introduction and applied example | Analyzing Biological Processes Over Time" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Introduction and applied example | Analyzing Biological Processes Over Time" />
+  
+  
+  
+
+<meta name="author" content="Claudio D. Silva Jr" />
+
+
+<meta name="date" content="2026-09-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="pre-workshop.html"/>
+<link rel="next" href="hands-on-polynomial-regression.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/codefolding-lua-1.1/codefolding-lua.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Welcome to the workshop!</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#what-will-you-learn"><i class="fa fa-check"></i><b>1.1</b> What will you learn?</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#workshop-schedule"><i class="fa fa-check"></i><b>1.2</b> Workshop schedule:</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="pre-workshop.html"><a href="pre-workshop.html"><i class="fa fa-check"></i><b>2</b> Pre-workshop</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="pre-workshop.html"><a href="pre-workshop.html#how-to-make-the-most-of-this-workshop"><i class="fa fa-check"></i><b>2.1</b> How to make the most of this workshop?</a></li>
+<li class="chapter" data-level="2.2" data-path="pre-workshop.html"><a href="pre-workshop.html#things-to-keep-in-mind"><i class="fa fa-check"></i><b>2.2</b> Things to keep in mind:</a></li>
+<li class="chapter" data-level="2.3" data-path="pre-workshop.html"><a href="pre-workshop.html#notation-guide"><i class="fa fa-check"></i><b>2.3</b> Notation guide</a></li>
+<li class="chapter" data-level="2.4" data-path="pre-workshop.html"><a href="pre-workshop.html#glossary"><i class="fa fa-check"></i><b>2.4</b> Glossary</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html"><i class="fa fa-check"></i><b>3</b> Introduction and applied example</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#lets-work-together"><i class="fa fa-check"></i><b>3.1</b> Let’s work together</a></li>
+<li class="chapter" data-level="3.2" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#modeling-biological-processes-in-time"><i class="fa fa-check"></i><b>3.2</b> Modeling biological processes in time</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#polynomial-regression"><i class="fa fa-check"></i><b>3.2.1</b> Polynomial regression</a></li>
+<li class="chapter" data-level="3.2.2" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#beta-regression"><i class="fa fa-check"></i><b>3.2.2</b> Beta regression</a></li>
+<li class="chapter" data-level="3.2.3" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#logistic-disease-progress-curve"><i class="fa fa-check"></i><b>3.2.3</b> Logistic Disease Progress Curve</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="introduction-and-applied-example.html"><a href="introduction-and-applied-example.html#applying-the-logistic-disease-progress-curve-to-our-example"><i class="fa fa-check"></i><b>3.3</b> Applying the logistic disease progress curve to our example</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="hands-on-polynomial-regression.html"><a href="hands-on-polynomial-regression.html"><i class="fa fa-check"></i><b>4</b> Hands-on: Polynomial regression</a></li>
+<li class="chapter" data-level="5" data-path="hands-on-beta-regression.html"><a href="hands-on-beta-regression.html"><i class="fa fa-check"></i><b>5</b> Hands-on: Beta regression</a></li>
+<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyzing Biological Processes Over Time</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-and-applied-example" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Introduction and applied example<a href="introduction-and-applied-example.html#introduction-and-applied-example" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="lets-work-together" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Let’s work together<a href="introduction-and-applied-example.html#lets-work-together" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>The experiment:</strong></p>
+<ul>
+<li><p>RCBD (Randomized Complete Block Design) with 4 replicates (blocks)</p></li>
+<li><p>Three treatments: Untreated (UN), Fungicide 1 (F1), Fungicide 2 (F2)</p></li>
+<li><p>Evaluations over time in 6 different dates after a critical growth stage (Flag Leaf Emergence): 3, 10, 17, 24, 31, and 38 days after</p></li>
+<li><p>Disease was measured as: Severity (Percentage of leaf area affected by the disease)<strong>*</strong></p></li>
+<li><p>The disease: Wheat stripe rust (Polycyclic - Multiple cycles within a crop season)<strong>*</strong></p></li>
+</ul>
+<p><strong>*Most critical information</strong></p>
+<p><br><br></p>
+<p><strong>The data:</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction-and-applied-example.html#cb1-1" tabindex="-1"></a><span class="co"># Read the data</span></span>
+<span id="cb1-2"><a href="introduction-and-applied-example.html#cb1-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">&quot;Example_df1.xlsx&quot;</span>)</span>
+<span id="cb1-3"><a href="introduction-and-applied-example.html#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="introduction-and-applied-example.html#cb1-4" tabindex="-1"></a><span class="co"># Control trt factor order</span></span>
+<span id="cb1-5"><a href="introduction-and-applied-example.html#cb1-5" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb1-6"><a href="introduction-and-applied-example.html#cb1-6" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-7"><a href="introduction-and-applied-example.html#cb1-7" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">as.factor</span>(trt),</span>
+<span id="cb1-8"><a href="introduction-and-applied-example.html#cb1-8" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">fct_relevel</span>(trt, <span class="fu">c</span>(<span class="st">&quot;UN&quot;</span>, <span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>)))</span>
+<span id="cb1-9"><a href="introduction-and-applied-example.html#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="introduction-and-applied-example.html#cb1-10" tabindex="-1"></a><span class="co"># Exploratory plot</span></span>
+<span id="cb1-11"><a href="introduction-and-applied-example.html#cb1-11" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(day, y, <span class="at">colour =</span> trt)) <span class="sc">+</span></span>
+<span id="cb1-12"><a href="introduction-and-applied-example.html#cb1-12" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb1-13"><a href="introduction-and-applied-example.html#cb1-13" tabindex="-1"></a>  <span class="fu">stat_summary</span>(<span class="at">geom =</span> <span class="st">&quot;line&quot;</span>, <span class="at">fun =</span> mean, <span class="at">size =</span> <span class="dv">1</span>, <span class="fu">aes</span>(<span class="at">group =</span> trt)) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="introduction-and-applied-example.html#cb1-14" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;turquoise4&quot;</span>, <span class="st">&quot;#8B0000&quot;</span>, <span class="st">&quot;green4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="introduction-and-applied-example.html#cb1-15" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Severity (Prop.)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Days&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;Treatment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-16"><a href="introduction-and-applied-example.html#cb1-16" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+</details>
+<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-2-1.png" alt="" width="672" /></p>
+<p>How would you analyse this?</p>
+<ul>
+<li><p>Pick one time and proceed with ANOVA + Multiple comparison</p>
+<ul>
+<li>Why not use repeated measures ANOVA or Split-plot in time?</li>
+</ul></li>
+<li><p>Average treatments over time and proceed with ANOVA + Multiple comparison</p>
+<ul>
+<li>Why then collect all this information if we are going to “lose” it?</li>
+</ul></li>
+</ul>
+<p><br><br></p>
+<center>
+<strong>How about modeling the relationship between time and the response?</strong>
+</center>
+<p><br><br></p>
+</div>
+<div id="modeling-biological-processes-in-time" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Modeling biological processes in time<a href="introduction-and-applied-example.html#modeling-biological-processes-in-time" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Today, we will work with three very accessible options:</p>
+<p><br><br></p>
+<div id="polynomial-regression" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Polynomial regression<a href="introduction-and-applied-example.html#polynomial-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Polynomial regression is the name given to a linear model whose the standard linear predictor <span class="math inline">\(y_i = \beta_0 + \beta_1x_i + \varepsilon_i\)</span> is replaced by a polynomial function:</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1x_i + \beta_2x_i^2 + ... + \beta_dx_i^d + \varepsilon_i\]</span></p>
+<p>Although polynomial regression is still a linear model<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> it is more flexible than a linear predictor, and allow for producing extremely nonlinear curves (higher the degree <span class="math inline">\(d\)</span>, higher the flexibility).</p>
+<p><br><br></p>
+</div>
+<div id="beta-regression" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Beta regression<a href="introduction-and-applied-example.html#beta-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A beta regression is a linear regression model where the response is assumed to follow a beta distribution<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, while the mean is modeled through a link function.</p>
+<p>Recall the linear regression model:</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1x_i + \varepsilon_i \\[10pt] \varepsilon_i \sim Normal(0, \sigma^2_\varepsilon)\]</span></p>
+<p>We can re-write this model using probabilistic notation as:</p>
+<p><span class="math display">\[y_i \sim Normal(\beta_0 + \beta_1x_i, \, \sigma^2_\varepsilon)\]</span></p>
+<p>Now, for a beta regression model, we would write it as:</p>
+<p><span class="math display">\[y_i \sim Beta(\mu_i, \, \phi)\]</span></p>
+<p>where <span class="math inline">\(\mu_i\)</span> is the mean and <span class="math inline">\(\phi\)</span> is the dispersion parameter, inversely related to the variance. For more on beta regression, check this paper out: <span class="citation">Ferrari and Cribari-Neto (2004)</span>.</p>
+<p>Notice that in both cases, we are modeling the mean (<span class="math inline">\(\mu\)</span>), but there is a very important difference, in the beta regression, we model the mean through a link function<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>:</p>
+<p><span class="math display">\[\eta_i = g(\mu_i) = \beta_0 + \beta_1x_i\]</span></p>
+<p>Here, our link function will be the logit:</p>
+<p><span class="math display">\[g(\mu_i) = log(\frac{\mu_i}{1-\mu_i})\]</span></p>
+<p>This link function transforms proportions from (0, 1) to the real line. And our expectation/mean is:</p>
+<p><span class="math display">\[\mu_i = logit^{-1}(\eta_i) = \frac{1}{1 + e^{-\eta_i}}\]</span></p>
+<p>Which is our original response scale at (0, 1).</p>
+<p><br><br></p>
+<center>
+Why would we use beta regression if it is similar to a linear regression?
+</center>
+<p><br><br></p>
+<p><strong>Remark: The standard beta distribution does not include exact 0 or 1, and such values can happen. Handling these boundary values is an extension beyond this workshop. Options include:</strong></p>
+<ul>
+<li><p>Hurdle models:</p></li>
+<li><p>Transformations: <span class="citation">Smithson and Verkuilen (2006)</span></p></li>
+</ul>
+<p><br><br></p>
+</div>
+<div id="logistic-disease-progress-curve" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Logistic Disease Progress Curve<a href="introduction-and-applied-example.html#logistic-disease-progress-curve" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Disease progress curves are nonlinear models historically used in plant pathology to model the progress of plant disease epidemics on time. They are mechanistic models<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> with direct relation to specific types of disease cycles, with logistic models being associated with polycyclic diseases, and monomolecular models to monocyclic diseases.</p>
+<p>Among the disease progress curves, the logistic is one of the most widely used ones!</p>
+<p>The logistic disease progress curve is represented with the following equation:</p>
+<p><span class="math display">\[y_i = \frac{K}{1+(\frac{K-y_0}{y0})e^{-rx_i}}\]</span></p>
+<p>However, we use the logistic disease progress curve equation to model the expectation/mean of our distribution, similarly to what we did before. Today, we will be doing something like this:</p>
+<p><span class="math display">\[y_i \sim N(\mu_i, \, \sigma^2) \\[10pt] \mu_i = \frac{K}{1+(\frac{K-y_0}{y0})e^{-rx_i}}\]</span></p>
+<p>In this model, it is important to notice that parameters have meaning, the following points describe the three parameters of the logistic disease progress curve:</p>
+<ul>
+<li><p><span class="math inline">\(K\)</span> - Maximum disease potential, upper asymptote.</p></li>
+<li><p><span class="math inline">\(y_0\)</span> - Initial disease level at <span class="math inline">\(t = 0\)</span>.</p></li>
+<li><p><span class="math inline">\(r\)</span> - Apparent rate of growth: Epidemic “speedometer”, how fast the epidemic moves from <span class="math inline">\(y_0\)</span> to <span class="math inline">\(K\)</span>.</p></li>
+</ul>
+<p><br><br></p>
+<center>
+<strong>Remark: They are not mutually exclusive!</strong>
+</center>
+<p><br><br></p>
+<center>
+What are your thoughts on why we chose these options?
+</center>
+<p><br><br></p>
+</div>
+</div>
+<div id="applying-the-logistic-disease-progress-curve-to-our-example" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Applying the logistic disease progress curve to our example<a href="introduction-and-applied-example.html#applying-the-logistic-disease-progress-curve-to-our-example" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This is the model we will be working with:</p>
+<p><span class="math display">\[y_{ij} \sim N(\mu_{ij}, \, \sigma^2) \\[10pt] \mu_{ij} = \frac{K_i}{1+(\frac{K_i - y_{0i}}{y_{0i}})e^{-r_it_j}}\]</span></p>
+<p>where the mean <span class="math inline">\(\mu_{ij}\)</span> of the <em>i</em>th treatment levels at the <em>j</em>th day was modeled using the logistics disease progress curve, with the three parameters <span class="math inline">\(K\)</span>, <span class="math inline">\(r\)</span>, and <span class="math inline">\(y_0\)</span>, being specific for each <em>i</em>th treatment level.</p>
+<p>The research question we wish to answer is: Which product was the most effective in suppressing the epidemic?</p>
+<p><br><br></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="introduction-and-applied-example.html#cb2-1" tabindex="-1"></a><span class="co"># Getting initials for the model</span></span>
+<span id="cb2-2"><a href="introduction-and-applied-example.html#cb2-2" tabindex="-1"></a>treatments <span class="ot">&lt;-</span> <span class="fu">unique</span>(df<span class="sc">$</span>trt)</span>
+<span id="cb2-3"><a href="introduction-and-applied-example.html#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="introduction-and-applied-example.html#cb2-4" tabindex="-1"></a>initials <span class="ot">&lt;-</span> <span class="fu">data.frame</span>()</span>
+<span id="cb2-5"><a href="introduction-and-applied-example.html#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="introduction-and-applied-example.html#cb2-6" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(treatments)){</span>
+<span id="cb2-7"><a href="introduction-and-applied-example.html#cb2-7" tabindex="-1"></a>  df_f <span class="ot">&lt;-</span> <span class="fu">filter</span>(df, df<span class="sc">$</span>trt <span class="sc">==</span> treatments[i])</span>
+<span id="cb2-8"><a href="introduction-and-applied-example.html#cb2-8" tabindex="-1"></a>  </span>
+<span id="cb2-9"><a href="introduction-and-applied-example.html#cb2-9" tabindex="-1"></a>  init <span class="ot">&lt;-</span> <span class="fu">getInitial</span>(y <span class="sc">~</span> <span class="fu">SSlogis</span>(day, Asym, xmid, scal), df_f)</span>
+<span id="cb2-10"><a href="introduction-and-applied-example.html#cb2-10" tabindex="-1"></a>  </span>
+<span id="cb2-11"><a href="introduction-and-applied-example.html#cb2-11" tabindex="-1"></a>  temp <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-12"><a href="introduction-and-applied-example.html#cb2-12" tabindex="-1"></a>    <span class="at">K =</span> <span class="fu">as.numeric</span>(init[<span class="st">&quot;Asym&quot;</span>]),</span>
+<span id="cb2-13"><a href="introduction-and-applied-example.html#cb2-13" tabindex="-1"></a>    <span class="at">r =</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">as.numeric</span>(init[<span class="st">&quot;scal&quot;</span>]),</span>
+<span id="cb2-14"><a href="introduction-and-applied-example.html#cb2-14" tabindex="-1"></a>    <span class="at">treat =</span> treatments[i])</span>
+<span id="cb2-15"><a href="introduction-and-applied-example.html#cb2-15" tabindex="-1"></a>  </span>
+<span id="cb2-16"><a href="introduction-and-applied-example.html#cb2-16" tabindex="-1"></a>  temp<span class="sc">$</span>y0 <span class="ot">&lt;-</span> temp<span class="sc">$</span>K<span class="sc">/</span>(<span class="fu">exp</span>(<span class="fu">as.numeric</span>(init[<span class="st">&quot;xmid&quot;</span>])<span class="sc">*</span>temp<span class="sc">$</span>r)<span class="sc">+</span><span class="dv">1</span>)</span>
+<span id="cb2-17"><a href="introduction-and-applied-example.html#cb2-17" tabindex="-1"></a>  </span>
+<span id="cb2-18"><a href="introduction-and-applied-example.html#cb2-18" tabindex="-1"></a>  initials <span class="ot">&lt;-</span> <span class="fu">rbind</span>(initials, temp)</span>
+<span id="cb2-19"><a href="introduction-and-applied-example.html#cb2-19" tabindex="-1"></a>}</span>
+<span id="cb2-20"><a href="introduction-and-applied-example.html#cb2-20" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="introduction-and-applied-example.html#cb2-21" tabindex="-1"></a><span class="co"># Model fit</span></span>
+<span id="cb2-22"><a href="introduction-and-applied-example.html#cb2-22" tabindex="-1"></a><span class="do">## Cehck treatment levels - UN as reference</span></span>
+<span id="cb2-23"><a href="introduction-and-applied-example.html#cb2-23" tabindex="-1"></a><span class="fu">levels</span>(df<span class="sc">$</span>trt)</span>
+<span id="cb2-24"><a href="introduction-and-applied-example.html#cb2-24" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="introduction-and-applied-example.html#cb2-25" tabindex="-1"></a><span class="do">## Organize starting values</span></span>
+<span id="cb2-26"><a href="introduction-and-applied-example.html#cb2-26" tabindex="-1"></a>init_UN <span class="ot">&lt;-</span> <span class="fu">filter</span>(initials, treat <span class="sc">==</span> <span class="st">&quot;UN&quot;</span>)</span>
+<span id="cb2-27"><a href="introduction-and-applied-example.html#cb2-27" tabindex="-1"></a>init_F1 <span class="ot">&lt;-</span> <span class="fu">filter</span>(initials, treat <span class="sc">==</span> <span class="st">&quot;F1&quot;</span>)</span>
+<span id="cb2-28"><a href="introduction-and-applied-example.html#cb2-28" tabindex="-1"></a>init_F2 <span class="ot">&lt;-</span> <span class="fu">filter</span>(initials, treat <span class="sc">==</span> <span class="st">&quot;F2&quot;</span>)</span>
+<span id="cb2-29"><a href="introduction-and-applied-example.html#cb2-29" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="introduction-and-applied-example.html#cb2-30" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-31"><a href="introduction-and-applied-example.html#cb2-31" tabindex="-1"></a>  <span class="co"># K</span></span>
+<span id="cb2-32"><a href="introduction-and-applied-example.html#cb2-32" tabindex="-1"></a>  init_UN<span class="sc">$</span>K,</span>
+<span id="cb2-33"><a href="introduction-and-applied-example.html#cb2-33" tabindex="-1"></a>  init_F1<span class="sc">$</span>K <span class="sc">-</span> init_UN<span class="sc">$</span>K,</span>
+<span id="cb2-34"><a href="introduction-and-applied-example.html#cb2-34" tabindex="-1"></a>  init_F2<span class="sc">$</span>K <span class="sc">-</span> init_UN<span class="sc">$</span>K,</span>
+<span id="cb2-35"><a href="introduction-and-applied-example.html#cb2-35" tabindex="-1"></a>  </span>
+<span id="cb2-36"><a href="introduction-and-applied-example.html#cb2-36" tabindex="-1"></a>  <span class="co"># r</span></span>
+<span id="cb2-37"><a href="introduction-and-applied-example.html#cb2-37" tabindex="-1"></a>  init_UN<span class="sc">$</span>r,</span>
+<span id="cb2-38"><a href="introduction-and-applied-example.html#cb2-38" tabindex="-1"></a>  init_F1<span class="sc">$</span>r <span class="sc">-</span> init_UN<span class="sc">$</span>r,</span>
+<span id="cb2-39"><a href="introduction-and-applied-example.html#cb2-39" tabindex="-1"></a>  init_F2<span class="sc">$</span>r <span class="sc">-</span> init_UN<span class="sc">$</span>r,</span>
+<span id="cb2-40"><a href="introduction-and-applied-example.html#cb2-40" tabindex="-1"></a>  </span>
+<span id="cb2-41"><a href="introduction-and-applied-example.html#cb2-41" tabindex="-1"></a>  <span class="co"># y0</span></span>
+<span id="cb2-42"><a href="introduction-and-applied-example.html#cb2-42" tabindex="-1"></a>  init_UN<span class="sc">$</span>y0,</span>
+<span id="cb2-43"><a href="introduction-and-applied-example.html#cb2-43" tabindex="-1"></a>  init_F1<span class="sc">$</span>y0 <span class="sc">-</span> init_UN<span class="sc">$</span>y0,</span>
+<span id="cb2-44"><a href="introduction-and-applied-example.html#cb2-44" tabindex="-1"></a>  init_F2<span class="sc">$</span>y0 <span class="sc">-</span> init_UN<span class="sc">$</span>y0</span>
+<span id="cb2-45"><a href="introduction-and-applied-example.html#cb2-45" tabindex="-1"></a>)</span>
+<span id="cb2-46"><a href="introduction-and-applied-example.html#cb2-46" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="introduction-and-applied-example.html#cb2-47" tabindex="-1"></a><span class="do">## Fitting the model using generalized least squares</span></span>
+<span id="cb2-48"><a href="introduction-and-applied-example.html#cb2-48" tabindex="-1"></a>m1 <span class="ot">&lt;-</span> <span class="fu">gnls</span>(</span>
+<span id="cb2-49"><a href="introduction-and-applied-example.html#cb2-49" tabindex="-1"></a>  y <span class="sc">~</span> K <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> ((K <span class="sc">-</span> y0) <span class="sc">/</span> y0) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>r <span class="sc">*</span> day)),</span>
+<span id="cb2-50"><a href="introduction-and-applied-example.html#cb2-50" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-51"><a href="introduction-and-applied-example.html#cb2-51" tabindex="-1"></a>  <span class="at">params =</span> K <span class="sc">+</span> r <span class="sc">+</span> y0 <span class="sc">~</span> trt,</span>
+<span id="cb2-52"><a href="introduction-and-applied-example.html#cb2-52" tabindex="-1"></a>  <span class="at">start =</span> start</span>
+<span id="cb2-53"><a href="introduction-and-applied-example.html#cb2-53" tabindex="-1"></a>)</span></code></pre></div>
+</details>
+<p>What did we get:</p>
+<p><strong>Estimates:</strong></p>
+<p><span class="math display">\[K \: r \: y_0\]</span></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction-and-applied-example.html#cb3-1" tabindex="-1"></a>m1_est <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-2"><a href="introduction-and-applied-example.html#cb3-2" tabindex="-1"></a>  <span class="at">trt =</span> <span class="fu">c</span>(<span class="st">&quot;UN&quot;</span>, <span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>),</span>
+<span id="cb3-3"><a href="introduction-and-applied-example.html#cb3-3" tabindex="-1"></a>  <span class="at">K_est =</span> <span class="fu">c</span>(<span class="fu">coef</span>(m1)[<span class="dv">1</span>], <span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">2</span>], <span class="fu">coef</span>(m1)[<span class="dv">1</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">3</span>]),</span>
+<span id="cb3-4"><a href="introduction-and-applied-example.html#cb3-4" tabindex="-1"></a>  <span class="at">r_est =</span> <span class="fu">c</span>(<span class="fu">coef</span>(m1)[<span class="dv">4</span>], <span class="fu">coef</span>(m1)[<span class="dv">4</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">5</span>], <span class="fu">coef</span>(m1)[<span class="dv">4</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">6</span>]),</span>
+<span id="cb3-5"><a href="introduction-and-applied-example.html#cb3-5" tabindex="-1"></a>  <span class="at">y0_est =</span> <span class="fu">c</span>(<span class="fu">coef</span>(m1)[<span class="dv">7</span>], <span class="fu">coef</span>(m1)[<span class="dv">7</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">8</span>], <span class="fu">coef</span>(m1)[<span class="dv">7</span>] <span class="sc">+</span> <span class="fu">coef</span>(m1)[<span class="dv">9</span>]))</span>
+<span id="cb3-6"><a href="introduction-and-applied-example.html#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="introduction-and-applied-example.html#cb3-7" tabindex="-1"></a><span class="co"># SE for parameter estimates</span></span>
+<span id="cb3-8"><a href="introduction-and-applied-example.html#cb3-8" tabindex="-1"></a>m1_est <span class="ot">&lt;-</span> m1_est <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="introduction-and-applied-example.html#cb3-9" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-10"><a href="introduction-and-applied-example.html#cb3-10" tabindex="-1"></a>    <span class="at">K_se =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-11"><a href="introduction-and-applied-example.html#cb3-11" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;UN&quot;</span> <span class="sc">~</span> <span class="fu">sqrt</span>(<span class="fu">vcov</span>(m1)[<span class="dv">1</span>,<span class="dv">1</span>]),</span>
+<span id="cb3-12"><a href="introduction-and-applied-example.html#cb3-12" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;F1&quot;</span> <span class="sc">~</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> x1<span class="sc">+</span>x2, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1)),</span>
+<span id="cb3-13"><a href="introduction-and-applied-example.html#cb3-13" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;F2&quot;</span> <span class="sc">~</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> x1<span class="sc">+</span>x3, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1))),</span>
+<span id="cb3-14"><a href="introduction-and-applied-example.html#cb3-14" tabindex="-1"></a>    </span>
+<span id="cb3-15"><a href="introduction-and-applied-example.html#cb3-15" tabindex="-1"></a>    <span class="at">r_se =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-16"><a href="introduction-and-applied-example.html#cb3-16" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;UN&quot;</span> <span class="sc">~</span> <span class="fu">sqrt</span>(<span class="fu">vcov</span>(m1)[<span class="dv">4</span>,<span class="dv">4</span>]),</span>
+<span id="cb3-17"><a href="introduction-and-applied-example.html#cb3-17" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;F1&quot;</span> <span class="sc">~</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> x4<span class="sc">+</span>x5, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1)),</span>
+<span id="cb3-18"><a href="introduction-and-applied-example.html#cb3-18" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;F2&quot;</span> <span class="sc">~</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> x4<span class="sc">+</span>x6, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1))),</span>
+<span id="cb3-19"><a href="introduction-and-applied-example.html#cb3-19" tabindex="-1"></a>    </span>
+<span id="cb3-20"><a href="introduction-and-applied-example.html#cb3-20" tabindex="-1"></a>    <span class="at">y0_se =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-21"><a href="introduction-and-applied-example.html#cb3-21" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;UN&quot;</span> <span class="sc">~</span> <span class="fu">sqrt</span>(<span class="fu">vcov</span>(m1)[<span class="dv">7</span>,<span class="dv">7</span>]),</span>
+<span id="cb3-22"><a href="introduction-and-applied-example.html#cb3-22" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;F1&quot;</span> <span class="sc">~</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> x7<span class="sc">+</span>x8, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1)),</span>
+<span id="cb3-23"><a href="introduction-and-applied-example.html#cb3-23" tabindex="-1"></a>      trt <span class="sc">==</span> <span class="st">&quot;F2&quot;</span> <span class="sc">~</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> x7<span class="sc">+</span>x9, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1)))</span>
+<span id="cb3-24"><a href="introduction-and-applied-example.html#cb3-24" tabindex="-1"></a>    )</span>
+<span id="cb3-25"><a href="introduction-and-applied-example.html#cb3-25" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="introduction-and-applied-example.html#cb3-26" tabindex="-1"></a><span class="co"># CI for K</span></span>
+<span id="cb3-27"><a href="introduction-and-applied-example.html#cb3-27" tabindex="-1"></a>m1_est<span class="sc">$</span>K_lb <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>K_est <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>m1_est<span class="sc">$</span>K_se</span>
+<span id="cb3-28"><a href="introduction-and-applied-example.html#cb3-28" tabindex="-1"></a>m1_est<span class="sc">$</span>K_ub <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>K_est <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>m1_est<span class="sc">$</span>K_se</span>
+<span id="cb3-29"><a href="introduction-and-applied-example.html#cb3-29" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="introduction-and-applied-example.html#cb3-30" tabindex="-1"></a><span class="co"># CI for r</span></span>
+<span id="cb3-31"><a href="introduction-and-applied-example.html#cb3-31" tabindex="-1"></a>m1_est<span class="sc">$</span>r_lb <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>r_est <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>m1_est<span class="sc">$</span>r_se</span>
+<span id="cb3-32"><a href="introduction-and-applied-example.html#cb3-32" tabindex="-1"></a>m1_est<span class="sc">$</span>r_ub <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>r_est <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>m1_est<span class="sc">$</span>r_se</span>
+<span id="cb3-33"><a href="introduction-and-applied-example.html#cb3-33" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="introduction-and-applied-example.html#cb3-34" tabindex="-1"></a><span class="co"># CI for r</span></span>
+<span id="cb3-35"><a href="introduction-and-applied-example.html#cb3-35" tabindex="-1"></a>m1_est<span class="sc">$</span>y0_lb <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>y0_est <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>m1_est<span class="sc">$</span>y0_se</span>
+<span id="cb3-36"><a href="introduction-and-applied-example.html#cb3-36" tabindex="-1"></a>m1_est<span class="sc">$</span>y0_ub <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>y0_est <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>m1_est<span class="sc">$</span>y0_se</span>
+<span id="cb3-37"><a href="introduction-and-applied-example.html#cb3-37" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="introduction-and-applied-example.html#cb3-38" tabindex="-1"></a>est_long <span class="ot">&lt;-</span> m1_est <span class="sc">%&gt;%</span></span>
+<span id="cb3-39"><a href="introduction-and-applied-example.html#cb3-39" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="sc">-</span>trt, <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;par&quot;</span>, <span class="st">&quot;.value&quot;</span>), <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>)</span>
+<span id="cb3-40"><a href="introduction-and-applied-example.html#cb3-40" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="introduction-and-applied-example.html#cb3-41" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="introduction-and-applied-example.html#cb3-42" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb3-43"><a href="introduction-and-applied-example.html#cb3-43" tabindex="-1"></a>est_long <span class="ot">&lt;-</span> est_long <span class="sc">%&gt;%</span></span>
+<span id="cb3-44"><a href="introduction-and-applied-example.html#cb3-44" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb3-45"><a href="introduction-and-applied-example.html#cb3-45" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">as.factor</span>(trt),</span>
+<span id="cb3-46"><a href="introduction-and-applied-example.html#cb3-46" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">fct_relevel</span>(trt, <span class="st">&quot;UN&quot;</span>, <span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>))</span>
+<span id="cb3-47"><a href="introduction-and-applied-example.html#cb3-47" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="introduction-and-applied-example.html#cb3-48" tabindex="-1"></a><span class="fu">summary</span>(m1)</span></code></pre></div>
+</details>
+<pre><code>## Generalized nonlinear least squares fit
+##   Model: y ~ K/(1 + ((K - y0)/y0) * exp(-r * day)) 
+##   Data: df 
+##         AIC       BIC   logLik
+##   -134.4891 -111.7224 77.24454
+## 
+## Coefficients:
+##                     Value Std.Error   t-value p-value
+## K.(Intercept)   1.0018741 0.1153627  8.684559  0.0000
+## K.trtF1        -0.2900662 0.6281129 -0.461806  0.6458
+## K.trtF2        -0.7830126 0.1265064 -6.189508  0.0000
+## r.(Intercept)   0.1513961 0.0291060  5.201542  0.0000
+## r.trtF1        -0.0094225 0.0828558 -0.113722  0.9098
+## r.trtF2         0.0504394 0.1468550  0.343464  0.7324
+## y0.(Intercept)  0.0219960 0.0126578  1.737743  0.0871
+## y0.trtF1       -0.0173268 0.0152994 -1.132518  0.2617
+## y0.trtF2       -0.0182585 0.0160080 -1.140586  0.2584
+## 
+##  Correlation: 
+##                K.(In) K.trF1 K.trF2 r.(In) r.trF1 r.trF2 y0.(I) y0.tF1
+## K.trtF1        -0.184                                                 
+## K.trtF2        -0.912  0.167                                          
+## r.(Intercept)  -0.836  0.154  0.763                                   
+## r.trtF1         0.294 -0.909 -0.268 -0.351                            
+## r.trtF2         0.166 -0.030 -0.425 -0.198  0.070                     
+## y0.(Intercept)  0.715 -0.131 -0.652 -0.967  0.340  0.192              
+## y0.trtF1       -0.592  0.583  0.540  0.800 -0.799 -0.159 -0.827       
+## y0.trtF2       -0.566  0.104  0.659  0.764 -0.269 -0.732 -0.791  0.654
+## 
+## Standardized residuals:
+##         Min          Q1         Med          Q3         Max 
+## -2.34282142 -0.48021522 -0.07631176  0.37522827  2.89725703 
+## 
+## Residual standard error: 0.08847691 
+## Degrees of freedom: 72 total; 63 residual</code></pre>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction-and-applied-example.html#cb5-1" tabindex="-1"></a><span class="fu">ggplot</span>(est_long, <span class="fu">aes</span>(par, est, <span class="at">colour =</span> trt)) <span class="sc">+</span></span>
+<span id="cb5-2"><a href="introduction-and-applied-example.html#cb5-2" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-3"><a href="introduction-and-applied-example.html#cb5-3" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> lb, <span class="at">ymax =</span> ub), <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="introduction-and-applied-example.html#cb5-4" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;turquoise4&quot;</span>, <span class="st">&quot;#8B0000&quot;</span>, <span class="st">&quot;green4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb5-5"><a href="introduction-and-applied-example.html#cb5-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Estimate&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Treatments&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;Treatment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="introduction-and-applied-example.html#cb5-6" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>trt) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="introduction-and-applied-example.html#cb5-7" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+</details>
+<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-4-1.png" alt="" width="672" /></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction-and-applied-example.html#cb6-1" tabindex="-1"></a><span class="fu">kable</span>(est_long)</span></code></pre></div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th align="left">trt</th>
+<th align="left">par</th>
+<th align="right">est</th>
+<th align="right">se</th>
+<th align="right">lb</th>
+<th align="right">ub</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">UN</td>
+<td align="left">K</td>
+<td align="right">1.0018741</td>
+<td align="right">0.1153627</td>
+<td align="right">0.7757632</td>
+<td align="right">1.2279850</td>
+</tr>
+<tr class="even">
+<td align="left">UN</td>
+<td align="left">r</td>
+<td align="right">0.1513961</td>
+<td align="right">0.0291060</td>
+<td align="right">0.0943484</td>
+<td align="right">0.2084439</td>
+</tr>
+<tr class="odd">
+<td align="left">UN</td>
+<td align="left">y0</td>
+<td align="right">0.0219960</td>
+<td align="right">0.0126578</td>
+<td align="right">-0.0028133</td>
+<td align="right">0.0468053</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">K</td>
+<td align="right">0.7118079</td>
+<td align="right">0.6174280</td>
+<td align="right">-0.4983509</td>
+<td align="right">1.9219668</td>
+</tr>
+<tr class="odd">
+<td align="left">F1</td>
+<td align="left">r</td>
+<td align="right">0.1419736</td>
+<td align="right">0.0775753</td>
+<td align="right">-0.0100740</td>
+<td align="right">0.2940212</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="left">y0</td>
+<td align="right">0.0046692</td>
+<td align="right">0.0085936</td>
+<td align="right">-0.0121743</td>
+<td align="right">0.0215127</td>
+</tr>
+<tr class="odd">
+<td align="left">F2</td>
+<td align="left">K</td>
+<td align="right">0.2188615</td>
+<td align="right">0.0519166</td>
+<td align="right">0.1171050</td>
+<td align="right">0.3206179</td>
+</tr>
+<tr class="even">
+<td align="left">F2</td>
+<td align="left">r</td>
+<td align="right">0.2018356</td>
+<td align="right">0.1439417</td>
+<td align="right">-0.0802902</td>
+<td align="right">0.4839614</td>
+</tr>
+<tr class="odd">
+<td align="left">F2</td>
+<td align="left">y0</td>
+<td align="right">0.0037375</td>
+<td align="right">0.0097998</td>
+<td align="right">-0.0154701</td>
+<td align="right">0.0229451</td>
+</tr>
+</tbody>
+</table>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction-and-applied-example.html#cb7-1" tabindex="-1"></a><span class="fu">summary</span>(m1)</span>
+<span id="cb7-2"><a href="introduction-and-applied-example.html#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="introduction-and-applied-example.html#cb7-3" tabindex="-1"></a>cont <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb7-4"><a href="introduction-and-applied-example.html#cb7-4" tabindex="-1"></a>  <span class="st">&quot;K: F1 - F2&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb7-5"><a href="introduction-and-applied-example.html#cb7-5" tabindex="-1"></a>  <span class="st">&quot;r: F1 - F2&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb7-6"><a href="introduction-and-applied-example.html#cb7-6" tabindex="-1"></a>  <span class="st">&quot;y0: F1 - F2&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb7-7"><a href="introduction-and-applied-example.html#cb7-7" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="introduction-and-applied-example.html#cb7-8" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">glht</span>(m1, <span class="at">linfct =</span> cont))</span></code></pre></div>
+</details>
+<p><br><br></p>
+<p><strong>Contrasts:</strong></p>
+<p><span class="math display">\[\Delta = \phi_i - \phi_j \\[10pt] H_0: \Delta = 0 \\[10pt] H_a: \Delta \neq 0\]</span></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introduction-and-applied-example.html#cb8-1" tabindex="-1"></a>contrasts_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb8-2"><a href="introduction-and-applied-example.html#cb8-2" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">&quot;UN - F1&quot;</span>, <span class="st">&quot;UN - F2&quot;</span>, <span class="st">&quot;F1 - F2&quot;</span>),</span>
+<span id="cb8-3"><a href="introduction-and-applied-example.html#cb8-3" tabindex="-1"></a>  <span class="at">K =</span> <span class="fu">c</span>(<span class="fl">0.646</span>, <span class="st">&quot;&lt; 0.001&quot;</span>, <span class="fl">0.675</span>),</span>
+<span id="cb8-4"><a href="introduction-and-applied-example.html#cb8-4" tabindex="-1"></a>  <span class="at">r =</span> <span class="fu">c</span>(<span class="fl">0.910</span>, <span class="fl">0.732</span>, <span class="fl">0.933</span>),</span>
+<span id="cb8-5"><a href="introduction-and-applied-example.html#cb8-5" tabindex="-1"></a>  <span class="at">y0 =</span> <span class="fu">c</span>(<span class="fl">0.262</span>, <span class="fl">0.258</span>, <span class="fl">0.999</span>)</span>
+<span id="cb8-6"><a href="introduction-and-applied-example.html#cb8-6" tabindex="-1"></a>)</span>
+<span id="cb8-7"><a href="introduction-and-applied-example.html#cb8-7" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="introduction-and-applied-example.html#cb8-8" tabindex="-1"></a><span class="fu">kable</span>(contrasts_df)</span></code></pre></div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th align="left">contrast</th>
+<th align="left">K</th>
+<th align="right">r</th>
+<th align="right">y0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">UN - F1</td>
+<td align="left">0.646</td>
+<td align="right">0.910</td>
+<td align="right">0.262</td>
+</tr>
+<tr class="even">
+<td align="left">UN - F2</td>
+<td align="left">&lt; 0.001</td>
+<td align="right">0.732</td>
+<td align="right">0.258</td>
+</tr>
+<tr class="odd">
+<td align="left">F1 - F2</td>
+<td align="left">0.675</td>
+<td align="right">0.933</td>
+<td align="right">0.999</td>
+</tr>
+</tbody>
+</table>
+<p><br><br></p>
+<p><strong>Predicted curves:</strong></p>
+<p><span class="math display">\[\mu_{ij}\]</span></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introduction-and-applied-example.html#cb9-1" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb9-2"><a href="introduction-and-applied-example.html#cb9-2" tabindex="-1"></a>  <span class="at">trt =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;UN&quot;</span>, <span class="dv">60</span>), <span class="fu">rep</span>(<span class="st">&quot;F1&quot;</span>, <span class="dv">60</span>), <span class="fu">rep</span>(<span class="st">&quot;F2&quot;</span>, <span class="dv">60</span>)),</span>
+<span id="cb9-3"><a href="introduction-and-applied-example.html#cb9-3" tabindex="-1"></a>  <span class="at">day =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">60</span>, <span class="at">by =</span> <span class="dv">1</span>), <span class="dv">3</span>)))</span>
+<span id="cb9-4"><a href="introduction-and-applied-example.html#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="introduction-and-applied-example.html#cb9-5" tabindex="-1"></a>pred_df<span class="sc">$</span>pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(m1, pred_df)</span>
+<span id="cb9-6"><a href="introduction-and-applied-example.html#cb9-6" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="introduction-and-applied-example.html#cb9-7" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> pred_df <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="introduction-and-applied-example.html#cb9-8" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb9-9"><a href="introduction-and-applied-example.html#cb9-9" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">as.factor</span>(trt),</span>
+<span id="cb9-10"><a href="introduction-and-applied-example.html#cb9-10" tabindex="-1"></a>    <span class="at">trt =</span> <span class="fu">fct_relevel</span>(trt, <span class="st">&quot;UN&quot;</span>, <span class="st">&quot;F1&quot;</span>, <span class="st">&quot;F2&quot;</span>))</span>
+<span id="cb9-11"><a href="introduction-and-applied-example.html#cb9-11" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="introduction-and-applied-example.html#cb9-12" tabindex="-1"></a><span class="fu">ggplot</span>(pred_df, <span class="fu">aes</span>(day, pred, <span class="at">colour =</span> trt, <span class="at">group =</span> trt)) <span class="sc">+</span></span>
+<span id="cb9-13"><a href="introduction-and-applied-example.html#cb9-13" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="introduction-and-applied-example.html#cb9-14" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">38</span>, <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-15"><a href="introduction-and-applied-example.html#cb9-15" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;turquoise4&quot;</span>, <span class="st">&quot;#8B0000&quot;</span>, <span class="st">&quot;green4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb9-16"><a href="introduction-and-applied-example.html#cb9-16" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Severity (Prop.)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Days&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;Treatment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb9-17"><a href="introduction-and-applied-example.html#cb9-17" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+</details>
+<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-7-1.png" alt="" width="672" /></p>
+<p><br><br></p>
+<p><strong>How many units of y are increasing per day for each curve at the maximum growth point</strong><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>?</p>
+<p><span class="math display">\[\frac{Kr}{4}\]</span></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction-and-applied-example.html#cb10-1" tabindex="-1"></a>m1_est<span class="sc">$</span>y_inf <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>K_est<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb10-2"><a href="introduction-and-applied-example.html#cb10-2" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="introduction-and-applied-example.html#cb10-3" tabindex="-1"></a>m1_est<span class="sc">$</span>max_s <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>r_est<span class="sc">*</span>m1_est<span class="sc">$</span>y_inf<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>(m1_est<span class="sc">$</span>y_inf<span class="sc">/</span>m1_est<span class="sc">$</span>K_est))</span>
+<span id="cb10-4"><a href="introduction-and-applied-example.html#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="introduction-and-applied-example.html#cb10-5" tabindex="-1"></a>UN_se_slope <span class="ot">&lt;-</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> (x1<span class="sc">*</span>x4)<span class="sc">/</span><span class="dv">4</span>, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1)) <span class="co"># UN se</span></span>
+<span id="cb10-6"><a href="introduction-and-applied-example.html#cb10-6" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="introduction-and-applied-example.html#cb10-7" tabindex="-1"></a>F1_se_slope <span class="ot">&lt;-</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> ((x1<span class="sc">+</span>x2)<span class="sc">*</span>(x4<span class="sc">+</span>x5))<span class="sc">/</span><span class="dv">4</span>, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1)) <span class="co"># F1 se</span></span>
+<span id="cb10-8"><a href="introduction-and-applied-example.html#cb10-8" tabindex="-1"></a></span>
+<span id="cb10-9"><a href="introduction-and-applied-example.html#cb10-9" tabindex="-1"></a>F2_se_slope <span class="ot">&lt;-</span> <span class="fu">deltamethod</span>(<span class="sc">~</span>((x1<span class="sc">+</span>x3)<span class="sc">*</span>(x4<span class="sc">+</span>x6))<span class="sc">/</span><span class="dv">4</span>, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1)) <span class="co"># F2 se</span></span>
+<span id="cb10-10"><a href="introduction-and-applied-example.html#cb10-10" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="introduction-and-applied-example.html#cb10-11" tabindex="-1"></a>m1_est <span class="ot">&lt;-</span> m1_est <span class="sc">%&gt;%</span></span>
+<span id="cb10-12"><a href="introduction-and-applied-example.html#cb10-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> <span class="fu">case_when</span>(</span>
+<span id="cb10-13"><a href="introduction-and-applied-example.html#cb10-13" tabindex="-1"></a>    trt <span class="sc">==</span> <span class="st">&quot;UN&quot;</span> <span class="sc">~</span> UN_se_slope,</span>
+<span id="cb10-14"><a href="introduction-and-applied-example.html#cb10-14" tabindex="-1"></a>    trt <span class="sc">==</span> <span class="st">&quot;F1&quot;</span> <span class="sc">~</span> F1_se_slope,</span>
+<span id="cb10-15"><a href="introduction-and-applied-example.html#cb10-15" tabindex="-1"></a>    trt <span class="sc">==</span> <span class="st">&quot;F2&quot;</span> <span class="sc">~</span> F2_se_slope))</span>
+<span id="cb10-16"><a href="introduction-and-applied-example.html#cb10-16" tabindex="-1"></a></span>
+<span id="cb10-17"><a href="introduction-and-applied-example.html#cb10-17" tabindex="-1"></a>m1_est<span class="sc">$</span>max_s_lb <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>max_s<span class="fl">-1.96</span><span class="sc">*</span>m1_est<span class="sc">$</span>se</span>
+<span id="cb10-18"><a href="introduction-and-applied-example.html#cb10-18" tabindex="-1"></a>m1_est<span class="sc">$</span>max_s_ub <span class="ot">&lt;-</span> m1_est<span class="sc">$</span>max_s<span class="fl">+1.96</span><span class="sc">*</span>m1_est<span class="sc">$</span>se</span>
+<span id="cb10-19"><a href="introduction-and-applied-example.html#cb10-19" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="introduction-and-applied-example.html#cb10-20" tabindex="-1"></a>slope_table <span class="ot">&lt;-</span> m1_est[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">13</span>)]</span>
+<span id="cb10-21"><a href="introduction-and-applied-example.html#cb10-21" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="introduction-and-applied-example.html#cb10-22" tabindex="-1"></a><span class="fu">kable</span>(slope_table)</span></code></pre></div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th align="left">trt</th>
+<th align="right">y_inf</th>
+<th align="right">max_s</th>
+<th align="right">se</th>
+<th align="right">max_s_lb</th>
+<th align="right">max_s_ub</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">UN</td>
+<td align="right">0.5009371</td>
+<td align="right">0.0379200</td>
+<td align="right">0.0043548</td>
+<td align="right">0.0293845</td>
+<td align="right">0.0464555</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="right">0.3559040</td>
+<td align="right">0.0252645</td>
+<td align="right">0.0104325</td>
+<td align="right">0.0048167</td>
+<td align="right">0.0457123</td>
+</tr>
+<tr class="odd">
+<td align="left">F2</td>
+<td align="right">0.1094307</td>
+<td align="right">0.0110435</td>
+<td align="right">0.0063841</td>
+<td align="right">-0.0014692</td>
+<td align="right">0.0235563</td>
+</tr>
+</tbody>
+</table>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction-and-applied-example.html#cb11-1" tabindex="-1"></a>slop_cont <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-2"><a href="introduction-and-applied-example.html#cb11-2" tabindex="-1"></a>  <span class="at">contrast =</span> <span class="fu">c</span>(<span class="st">&quot;UN-F1&quot;</span>, <span class="st">&quot;UN-F2&quot;</span>, <span class="st">&quot;F1-F2&quot;</span>),</span>
+<span id="cb11-3"><a href="introduction-and-applied-example.html#cb11-3" tabindex="-1"></a>  <span class="at">z =</span> <span class="fu">c</span>(</span>
+<span id="cb11-4"><a href="introduction-and-applied-example.html#cb11-4" tabindex="-1"></a>    </span>
+<span id="cb11-5"><a href="introduction-and-applied-example.html#cb11-5" tabindex="-1"></a>    (slope_table<span class="sc">$</span>max_s[<span class="dv">1</span>] <span class="sc">-</span> slope_table<span class="sc">$</span>max_s[<span class="dv">2</span>])<span class="sc">/</span>(<span class="fu">deltamethod</span>(<span class="sc">~</span> (x1<span class="sc">*</span>x4)<span class="sc">/</span><span class="dv">4</span> <span class="sc">-</span> ((x1<span class="sc">+</span>x2)<span class="sc">*</span>(x4<span class="sc">+</span>x5))<span class="sc">/</span><span class="dv">4</span>, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1))),</span>
+<span id="cb11-6"><a href="introduction-and-applied-example.html#cb11-6" tabindex="-1"></a>    </span>
+<span id="cb11-7"><a href="introduction-and-applied-example.html#cb11-7" tabindex="-1"></a>    (slope_table<span class="sc">$</span>max_s[<span class="dv">1</span>] <span class="sc">-</span> slope_table<span class="sc">$</span>max_s[<span class="dv">3</span>])<span class="sc">/</span>(<span class="fu">deltamethod</span>(<span class="sc">~</span> (x1<span class="sc">*</span>x4)<span class="sc">/</span><span class="dv">4</span> <span class="sc">-</span> ((x1<span class="sc">+</span>x3)<span class="sc">*</span>(x4<span class="sc">+</span>x6))<span class="sc">/</span><span class="dv">4</span>, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1))),</span>
+<span id="cb11-8"><a href="introduction-and-applied-example.html#cb11-8" tabindex="-1"></a>    </span>
+<span id="cb11-9"><a href="introduction-and-applied-example.html#cb11-9" tabindex="-1"></a>    (slope_table<span class="sc">$</span>max_s[<span class="dv">2</span>] <span class="sc">-</span> slope_table<span class="sc">$</span>max_s[<span class="dv">3</span>])<span class="sc">/</span>(<span class="fu">deltamethod</span>(<span class="sc">~</span> ((x1<span class="sc">+</span>x2)<span class="sc">*</span>(x4<span class="sc">+</span>x5))<span class="sc">/</span><span class="dv">4</span> <span class="sc">-</span> ((x1<span class="sc">+</span>x3)<span class="sc">*</span>(x4<span class="sc">+</span>x6))<span class="sc">/</span><span class="dv">4</span>, <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1)))</span>
+<span id="cb11-10"><a href="introduction-and-applied-example.html#cb11-10" tabindex="-1"></a>    </span>
+<span id="cb11-11"><a href="introduction-and-applied-example.html#cb11-11" tabindex="-1"></a>    )</span>
+<span id="cb11-12"><a href="introduction-and-applied-example.html#cb11-12" tabindex="-1"></a>)</span>
+<span id="cb11-13"><a href="introduction-and-applied-example.html#cb11-13" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="introduction-and-applied-example.html#cb11-14" tabindex="-1"></a>slop_cont<span class="sc">$</span>p_value <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="fu">pnorm</span>(<span class="fu">abs</span>(slop_cont<span class="sc">$</span>z), <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-15"><a href="introduction-and-applied-example.html#cb11-15" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="introduction-and-applied-example.html#cb11-16" tabindex="-1"></a><span class="fu">kable</span>(slop_cont)</span></code></pre></div>
+</details>
+<table>
+<thead>
+<tr class="header">
+<th align="left">contrast</th>
+<th align="right">z</th>
+<th align="right">p_value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">UN-F1</td>
+<td align="right">1.119462</td>
+<td align="right">0.2629433</td>
+</tr>
+<tr class="even">
+<td align="left">UN-F2</td>
+<td align="right">3.477836</td>
+<td align="right">0.0005055</td>
+</tr>
+<tr class="odd">
+<td align="left">F1-F2</td>
+<td align="right">1.162713</td>
+<td align="right">0.2449462</td>
+</tr>
+</tbody>
+</table>
+<center>
+<strong>Remark: The logistic disease progress curve has multiple slopes, we are looking at the maximum here!</strong>
+</center>
+<p><br><br></p>
+<p><strong>What is the disease severity at day 60?</strong></p>
+<details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introduction-and-applied-example.html#cb12-1" tabindex="-1"></a>pred_60 <span class="ot">&lt;-</span> <span class="fu">filter</span>(pred_df, day <span class="sc">==</span> <span class="dv">60</span>)</span>
+<span id="cb12-2"><a href="introduction-and-applied-example.html#cb12-2" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="introduction-and-applied-example.html#cb12-3" tabindex="-1"></a>UN_se_60 <span class="ot">&lt;-</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> (x1 <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> ((x1 <span class="sc">-</span> x7) <span class="sc">/</span> x7) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>x4 <span class="sc">*</span> <span class="dv">60</span>))), <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1))</span>
+<span id="cb12-4"><a href="introduction-and-applied-example.html#cb12-4" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="introduction-and-applied-example.html#cb12-5" tabindex="-1"></a>F1_se_60 <span class="ot">&lt;-</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> ((x1<span class="sc">+</span>x2) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> (((x1<span class="sc">+</span>x2) <span class="sc">-</span> (x7<span class="sc">+</span>x8)) <span class="sc">/</span> (x7<span class="sc">+</span>x8)) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>(x4<span class="sc">+</span>x5) <span class="sc">*</span> <span class="dv">60</span>))), <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1))</span>
+<span id="cb12-6"><a href="introduction-and-applied-example.html#cb12-6" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="introduction-and-applied-example.html#cb12-7" tabindex="-1"></a>F2_se_60 <span class="ot">&lt;-</span> <span class="fu">deltamethod</span>(<span class="sc">~</span> ((x1<span class="sc">+</span>x3) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> (((x1<span class="sc">+</span>x3) <span class="sc">-</span> (x7<span class="sc">+</span>x9)) <span class="sc">/</span> (x7<span class="sc">+</span>x9)) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>(x4<span class="sc">+</span>x6) <span class="sc">*</span> <span class="dv">60</span>))), <span class="fu">coef</span>(m1), <span class="fu">vcov</span>(m1))</span>
+<span id="cb12-8"><a href="introduction-and-applied-example.html#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="introduction-and-applied-example.html#cb12-9" tabindex="-1"></a>pred_60 <span class="ot">&lt;-</span> pred_60 <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="introduction-and-applied-example.html#cb12-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">se =</span> <span class="fu">case_when</span>(</span>
+<span id="cb12-11"><a href="introduction-and-applied-example.html#cb12-11" tabindex="-1"></a>    trt <span class="sc">==</span> <span class="st">&quot;UN&quot;</span> <span class="sc">~</span> UN_se_60,</span>
+<span id="cb12-12"><a href="introduction-and-applied-example.html#cb12-12" tabindex="-1"></a>    trt <span class="sc">==</span> <span class="st">&quot;F1&quot;</span> <span class="sc">~</span> F1_se_60,</span>
+<span id="cb12-13"><a href="introduction-and-applied-example.html#cb12-13" tabindex="-1"></a>    trt <span class="sc">==</span> <span class="st">&quot;F2&quot;</span> <span class="sc">~</span> F2_se_60))</span>
+<span id="cb12-14"><a href="introduction-and-applied-example.html#cb12-14" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="introduction-and-applied-example.html#cb12-15" tabindex="-1"></a>pred_60<span class="sc">$</span>CI.ub <span class="ot">&lt;-</span> pred_60<span class="sc">$</span>pred<span class="fl">+1.96</span><span class="sc">*</span>pred_60<span class="sc">$</span>se</span>
+<span id="cb12-16"><a href="introduction-and-applied-example.html#cb12-16" tabindex="-1"></a>pred_60<span class="sc">$</span>CI.lb <span class="ot">&lt;-</span> pred_60<span class="sc">$</span>pred<span class="fl">-1.96</span><span class="sc">*</span>pred_60<span class="sc">$</span>se</span>
+<span id="cb12-17"><a href="introduction-and-applied-example.html#cb12-17" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="introduction-and-applied-example.html#cb12-18" tabindex="-1"></a><span class="fu">ggplot</span>(pred_60, <span class="fu">aes</span>(trt, pred, <span class="at">colour =</span> trt)) <span class="sc">+</span></span>
+<span id="cb12-19"><a href="introduction-and-applied-example.html#cb12-19" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb12-20"><a href="introduction-and-applied-example.html#cb12-20" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> CI.lb, <span class="at">ymax =</span> CI.ub), <span class="at">width =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb12-21"><a href="introduction-and-applied-example.html#cb12-21" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;turquoise4&quot;</span>, <span class="st">&quot;#8B0000&quot;</span>, <span class="st">&quot;green4&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb12-22"><a href="introduction-and-applied-example.html#cb12-22" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Severity (Prop.) at day 60&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Treatments&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;Treatment&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-23"><a href="introduction-and-applied-example.html#cb12-23" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+</details>
+<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-10-1.png" alt="" width="672" /></p>
+<p><br><br></p>
+<p><strong>Conclusion:</strong></p>
+<ul>
+<li><p>Fungicide 2 was capable of reducing the maximum severity potential, limiting the potential disease damage;</p></li>
+<li><p>Fungicide 2 also reduced the maximum disease increase compared to untreated check;</p></li>
+<li><p>There is no evidence of differences between Fungicide 1 and the untreated check;</p></li>
+<li><p>60 days after the epidemic started, expected/mean proportion is relatively different between treatments. However, we are much more certain of a high severity for UN and low for F2 than the severity for the F1 treatment.</p></li>
+</ul>
+<p><br><br></p>
+<p><strong>Interesting topics of discussion:</strong></p>
+<ul>
+<li><p>Notice how uncertainty is propagated from the estimated curve parameters and the calculated derived quantities<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a>.</p></li>
+<li><p>Most of the lack of evidence about the differences between UN and F1, and UN and F2, arise from the high uncertainty on F1’s maximum disease potential. It does not mean our analysis is wrong, but it exposes one of the difficulties of estimating multiple parameters of nonlinear models.</p>
+<ul>
+<li>More about this on <a href="https://claudiodsjr11.github.io/Nonlinear-Models-for-the-Plant-Sciences/index.html">Nonlinear Models for the Plant Sciences</a></li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Linear model: Linear in the parameters. In summary: All unknown parameters only multiplies known quantities; All unknown parameters are added together; All parameters are outside nonlinear functions.</p>
+<p><span class="math display">\[\sum_j^b \beta_jxi\]</span><a href="introduction-and-applied-example.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>A beta distribution is a distribution whose the support (values a random variable arising from the distribution can assume) is bounded between 0 and 1. It is commonly used to model variables bounded between this interval, such as proportions.</p>
+<p><span class="math display">\[\theta \sim Beta(\alpha, \, \beta), \: \theta \in (0, \, 1)\]</span><a href="introduction-and-applied-example.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>A link function is a function that maps the expected value (mean) of the response variable to the linear predictor.</p>
+<p><span class="math display">\[g(\mu) = \eta\]</span><a href="introduction-and-applied-example.html#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Mechanistic models are designed to account for underlying processes in the system being studied. These underlying processes are represented through the model parameters. Each parameter has naturally a biological meaning, or a direct interpretation.<a href="introduction-and-applied-example.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><strong>The LDPC has a different slope at every time, but it reaches a maximum in</strong> <span class="math inline">\(\frac{K}{2}\)</span>.<a href="introduction-and-applied-example.html#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Derived quantities are functions of estimated parameters.<a href="introduction-and-applied-example.html#fnref6" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="pre-workshop.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="hands-on-polynomial-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": null,
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["Analyzing-Biological-Processes-Over-Time.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
