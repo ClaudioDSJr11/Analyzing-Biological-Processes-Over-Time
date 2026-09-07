@@ -241,7 +241,7 @@ div.csl-indent {
 <p>The Multivariate Normal distribution (MVN) is a compact way to represent multiple normally distributed observations together. This distribution shows up when we pile multiple random variables together in vector and matrix notation.</p>
 <p><br><br></p>
 <p>Scalar notation - Represents a single number</p>
-<p><span class="math display">\[ y_i = \beta_0 + \beta_1*x_i + \varepsilon_i \\ \varepsilon_i \sim N(0, \sigma^2) \]</span></p>
+<p><span class="math display">\[ y_i = \beta_0 + \beta_1x_i + \varepsilon_i \\ \varepsilon_i \sim N(0, \sigma^2) \]</span></p>
 <p>Where:</p>
 <ul>
 <li><p><span class="math inline">\(\beta_0\)</span> represents the intercept, the value of <span class="math inline">\(y_i\)</span> when <span class="math inline">\(x_i = 0\)</span>;</p></li>
@@ -251,7 +251,7 @@ div.csl-indent {
 </ul>
 <p><br><br></p>
 <p>Vector notation - Represents a vector of numbers</p>
-<p><span class="math display">\[ \mathbf{y} = \beta_0\mathbf{1} + \beta_1*\mathbf{x}+\boldsymbol{\varepsilon} \\[10pt] \begin{bmatrix} y_1 \\ y_2 \\ ... \\ y_n \end{bmatrix} = \beta_0 * \begin{bmatrix} 1 \\ 1 \\ ... \\ 1 \end{bmatrix} + \beta_1*\begin{bmatrix} x_1 \\ x_2 \\ ... \\ x_n \end{bmatrix} + \begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ ... \\ \varepsilon_n \end{bmatrix} \\[15pt] \boldsymbol{\varepsilon} \sim MVN(\mathbf{0}, \sigma^2\mathbf{I}) \]</span></p>
+<p><span class="math display">\[ \mathbf{y} = \beta_0\mathbf{1} + \beta_1\mathbf{x}+\boldsymbol{\varepsilon} \\[10pt] \begin{bmatrix} y_1 \\ y_2 \\ ... \\ y_n \end{bmatrix} = \beta_0 * \begin{bmatrix} 1 \\ 1 \\ ... \\ 1 \end{bmatrix} + \beta_1*\begin{bmatrix} x_1 \\ x_2 \\ ... \\ x_n \end{bmatrix} + \begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ ... \\ \varepsilon_n \end{bmatrix} \\[15pt] \boldsymbol{\varepsilon} \sim MVN(\mathbf{0}, \sigma^2\mathbf{I}) \]</span></p>
 <p>Here, the variance <span class="math inline">\(\sigma^2\mathbf{I}\)</span> represents the variance covariance matrix, where <span class="math inline">\(\mathbf{I}\)</span> is the identity matrix. For example, for a 3x3 identity matrix, this is how it looks like:</p>
 <p><span class="math display">\[\sigma^2\begin{bmatrix} 1 \ 0 \ 0 \\ 0 \ 1 \ 0 \\ 0 \ 0 \ 1 \end{bmatrix}\]</span></p>
 <p>With this matrix, we assume no correlation between our observed <span class="math inline">\(y_i\)</span>, in other words, independence. This can change by changing the matrix selected. A more general notation is <span class="math inline">\(\sigma^2\mathbf{\Sigma}\)</span>, where <span class="math inline">\(\mathbf{\Sigma}\)</span> represents a general matrix.</p>
@@ -263,7 +263,7 @@ div.csl-indent {
 <p>In distributional notation, see how we demonstrate that the deterministic mathematical equation influences the expectation/mean. The variance corresponds to the error term previously introduced as <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>.</p>
 <p>This notation reads: Observations <span class="math inline">\(y_i\)</span> arise from a normal distribution with the expectation/mean <span class="math inline">\(\mu_i\)</span> controlled by our mathematical equation and a given variance <span class="math inline">\(\sigma^2\)</span>. This variance relates to the observational level variance.</p>
 <p>This notation emphasizes that the model is a statement about how data are generated, combining a deterministic structure with stochastic variability.</p>
-<p><span class="math display">\[ y_i \sim N(\mu_i, \sigma^2) \\ \mu_i = \beta_0 + \beta_1*x_i \]</span></p>
+<p><span class="math display">\[ y_i \sim N(\mu_i, \sigma^2) \\ \mu_i = \beta_0 + \beta_1x_i \]</span></p>
 <p><br><br></p>
 <center>
 Models are Assumptions + Structure + Uncertainty!

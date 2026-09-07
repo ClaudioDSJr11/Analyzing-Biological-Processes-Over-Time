@@ -42,7 +42,7 @@ The Multivariate Normal distribution (MVN) is a compact way to represent multipl
 
 Scalar notation - Represents a single number
 
-$$ y_i = \beta_0 + \beta_1*x_i + \varepsilon_i \\ \varepsilon_i \sim N(0, \sigma^2) $$
+$$ y_i = \beta_0 + \beta_1x_i + \varepsilon_i \\ \varepsilon_i \sim N(0, \sigma^2) $$
 
 Where:
 
@@ -58,7 +58,7 @@ Where:
 
 Vector notation - Represents a vector of numbers
 
-$$ \mathbf{y} = \beta_0\mathbf{1} + \beta_1*\mathbf{x}+\boldsymbol{\varepsilon} \\[10pt] \begin{bmatrix} y_1 \\ y_2 \\ ... \\ y_n \end{bmatrix} = \beta_0 * \begin{bmatrix} 1 \\ 1 \\ ... \\ 1 \end{bmatrix} + \beta_1*\begin{bmatrix} x_1 \\ x_2 \\ ... \\ x_n \end{bmatrix} + \begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ ... \\ \varepsilon_n \end{bmatrix} \\[15pt] \boldsymbol{\varepsilon} \sim MVN(\mathbf{0}, \sigma^2\mathbf{I}) $$
+$$ \mathbf{y} = \beta_0\mathbf{1} + \beta_1\mathbf{x}+\boldsymbol{\varepsilon} \\[10pt] \begin{bmatrix} y_1 \\ y_2 \\ ... \\ y_n \end{bmatrix} = \beta_0 * \begin{bmatrix} 1 \\ 1 \\ ... \\ 1 \end{bmatrix} + \beta_1*\begin{bmatrix} x_1 \\ x_2 \\ ... \\ x_n \end{bmatrix} + \begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ ... \\ \varepsilon_n \end{bmatrix} \\[15pt] \boldsymbol{\varepsilon} \sim MVN(\mathbf{0}, \sigma^2\mathbf{I}) $$
 
 Here, the variance $\sigma^2\mathbf{I}$ represents the variance covariance matrix, where $\mathbf{I}$ is the identity matrix. For example, for a 3x3 identity matrix, this is how it looks like:
 
@@ -82,7 +82,7 @@ This notation reads: Observations $y_i$ arise from a normal distribution with th
 
 This notation emphasizes that the model is a statement about how data are generated, combining a deterministic structure with stochastic variability.
 
-$$ y_i \sim N(\mu_i, \sigma^2) \\ \mu_i = \beta_0 + \beta_1*x_i $$
+$$ y_i \sim N(\mu_i, \sigma^2) \\ \mu_i = \beta_0 + \beta_1x_i $$
 
 <br><br>
 
