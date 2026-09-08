@@ -16,6 +16,8 @@ More about it here: [Fundamentals of Linear Mixed Models for Designed Experiment
 
 You can also learn more about Generalized Linear Models (GLMs) here: @stroup2024
 
+Script and data [here!](https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time/tree/main/hands_on_material)
+
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 # Packages
 library(readxl) # Reading excel files

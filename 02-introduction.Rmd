@@ -9,6 +9,7 @@ library(tidyverse) # Wrangling
 library(knitr) # Visualization - Tables
 library(msm) # Delta method
 library(lme4) # Linear mixed models
+library(multcomp) # Multiple comparisons
 library(emmeans) # emmeans for mult comp
 library(glmmTMB) # beta regression / glmm
 ```

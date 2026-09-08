@@ -14,6 +14,8 @@ Here we are treating block as a random effect, which means that our observed blo
 
 You can learn more about polynomials in here: @james2021
 
+Script and data [here!](https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time/tree/main/hands_on_material)
+
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 # Packages
 library(readxl) # Reading excel files
