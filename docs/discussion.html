@@ -214,8 +214,8 @@ div.csl-indent {
 <h2><span class="header-section-number">6.1</span> How the results change?<a href="discussion.html#how-the-results-change" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li><p>LDPC was the only method that allowed us to check the epidemic meaningful parameters <span class="math inline">\(K\)</span>, <span class="math inline">\(y_0\)</span>, and <span class="math inline">\(r\)</span>.</p></li>
-<li><p>Beta and polynomial regression do not have parameters with direct biological meaning.</p></li>
-<li><p>We calculated derived quantities with similar meanings across methods, let’s check then together.</p></li>
+<li><p>Beta and polynomial regression do not have parameters directly related to the epidemic process (biologically meaningful) as the LDPC.</p></li>
+<li><p>We calculated similar derived quantities across methods, let’s check then together.</p></li>
 </ul>
 <p><br><br></p>
 <p><strong>Inflection points:</strong></p>
@@ -321,7 +321,7 @@ div.csl-indent {
 </table>
 <p><br><br></p>
 <p><strong>Maximum slopes:</strong></p>
-<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
+<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-15-1.png" alt="" width="672" /></p>
 <ul>
 <li><p>For treatments such as “UN” and “F2”, where the data show clearer patterns, the three modeling approaches produce very similar estimates of maximum slope.</p></li>
 <li><p>Comparing beta regression and the LDPC, the second shows greater uncertainty. This may reflect differences in model structure, the LDPC estimates three parameters that jointly determine the trajectory and maximum slope, whereas the beta regression with a linear predictor has a simpler mean structure.</p></li>
@@ -337,14 +337,14 @@ div.csl-indent {
 </center>
 <p><br><br></p>
 <p><strong>Predicted curves and prediction for day 60:</strong></p>
-<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
+<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-16-1.png" alt="" width="672" /></p>
 <ul>
 <li><p>LDPC is constrained by <span class="math inline">\(K\)</span>, the curve stop growing and approaches the maximum potential at that point (slope = 0);</p></li>
 <li><p>The beta regression is constrained between 0 and 1 by the assumed distribution, coupled with the inverse logit, it produces this sigmoidal shape that increases toward 1.</p></li>
 <li><p>The polynomial regression is unconstrained, and higher orders can be very flexible. Within the observed range it behaves similar to the LDPC, but outside the observed range it produces nonsense trajectories.</p></li>
 <li><p>Important note:</p>
 <ul>
-<li><p>LDPC: If <span class="math inline">\(r = 0\)</span>, the curve stays at <span class="math inline">\(y_0\)</span>, if <span class="math inline">\(r &lt;0\)</span>, the curve decreases.</p></li>
+<li><p>LDPC: If <span class="math inline">\(r = 0\)</span>, the curve stays at <span class="math inline">\(y_0\)</span>, if <span class="math inline">\(r &lt;0\)</span>, the curve decreases toward zero.</p></li>
 <li><p>Beta regression: In the response scale, If <span class="math inline">\(\beta_1 = 0\)</span>, the curve stays at <span class="math inline">\(\beta_0\)</span>, if <span class="math inline">\(\beta_1 &lt; 0\)</span>, the curve decreases toward 0.</p></li>
 </ul></li>
 </ul>
@@ -385,14 +385,14 @@ div.csl-indent {
 </tr>
 <tr class="odd">
 <td align="center"><strong>Mean boundaries</strong></td>
-<td align="center"><span class="math inline">\(y_0\)</span> and <span class="math inline">\(K\)</span></td>
+<td align="center">0 and <span class="math inline">\(K\)</span></td>
 <td align="center">No boundaries</td>
 <td align="center">0 - 1 bounded</td>
 </tr>
 <tr class="even">
-<td align="center"><strong>Upper assymptote</strong></td>
+<td align="center"><strong>Upper asymptote</strong></td>
 <td align="center"><span class="math inline">\(K\)</span></td>
-<td align="center">None (the sky is the limit!)</td>
+<td align="center">None - the sky is the limit!</td>
 <td align="center">1</td>
 </tr>
 <tr class="odd">
@@ -417,13 +417,13 @@ div.csl-indent {
 <p>Response scale: No</p></td>
 </tr>
 <tr class="even">
-<td align="center"><strong>Main strenght</strong></td>
+<td align="center"><strong>Main strength</strong></td>
 <td align="center">Epidemiologically interpretable trajectory</td>
 <td align="center">Flexible description</td>
 <td align="center">Appropriate support + bounded mean</td>
 </tr>
 <tr class="odd">
-<td align="center"><strong>Feasability</strong></td>
+<td align="center"><strong>Fesability</strong></td>
 <td align="center">Could be complex to fit, especially when data is sparse, best option for extrapolation.</td>
 <td align="center">Easy to fit compare to LDPC, will yield good results within observed range.</td>
 <td align="center">Easier and most straight forward option, especially if focusing on inference at link scale.</td>

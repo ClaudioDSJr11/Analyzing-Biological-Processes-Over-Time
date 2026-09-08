@@ -4,9 +4,9 @@
 
 - LDPC was the only method that allowed us to check the epidemic meaningful parameters $K$, $y_0$, and $r$.
 
-- Beta and polynomial regression do not have parameters with direct biological meaning.
+- Beta and polynomial regression do not have parameters directly related to the epidemic process (biologically meaningful) as the LDPC.
 
-- We calculated derived quantities with similar meanings across methods, let's check then together.
+- We calculated similar derived quantities across methods, let's check then together.
 
 <br><br>
 
@@ -110,7 +110,7 @@ ggplot(pred_df, aes(day, pred, group = trt)) +
 
 - Important note:
 
-  - LDPC: If $r = 0$, the curve stays at $y_0$, if $r <0$, the curve decreases.
+  - LDPC: If $r = 0$, the curve stays at $y_0$, if $r <0$, the curve decreases toward zero.
 
   - Beta regression: In the response scale, If $\beta_1 = 0$, the curve stays at $\beta_0$, if $\beta_1 < 0$, the curve decreases toward 0.
 
@@ -129,9 +129,9 @@ ggplot(pred_df, aes(day, pred, group = trt)) +
 |                                            |                                                                                         |                                                                             |                                                                                             |
 |                                            |                                                                                         |                                                                             | Response scale: Inverse logit                                                               |
 +--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
-| **Mean boundaries**                        | $y_0$ and $K$                                                                           | No boundaries                                                               | 0 - 1 bounded                                                                               |
+| **Mean boundaries**                        | 0 and $K$                                                                               | No boundaries                                                               | 0 - 1 bounded                                                                               |
 +--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
-| **Upper assymptote**                       | $K$                                                                                     | None (the sky is the limit!)                                                | 1                                                                                           |
+| **Upper asymptote**                        | $K$                                                                                     | None - the sky is the limit!                                                | 1                                                                                           |
 +--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
 | **Direct inference from model parameters** | Yes                                                                                     | Generally no                                                                | Link scale: Yes                                                                             |
 |                                            |                                                                                         |                                                                             |                                                                                             |
@@ -145,7 +145,7 @@ ggplot(pred_df, aes(day, pred, group = trt)) +
 |                                            |                                                                                         |                                                                             |                                                                                             |
 |                                            |                                                                                         |                                                                             | Response scale: No                                                                          |
 +--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
-| **Main strenght**                          | Epidemiologically interpretable trajectory                                              | Flexible description                                                        | Appropriate support + bounded mean                                                          |
+| **Main strength**                          | Epidemiologically interpretable trajectory                                              | Flexible description                                                        | Appropriate support + bounded mean                                                          |
 +--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
-| **Feasability**                            | Could be complex to fit, especially when data is sparse, best option for extrapolation. | Easy to fit compare to LDPC, will yield good results within observed range. | Easier and most straight forward option, especially if focusing on inference at link scale. |
+| **Fesability**                             | Could be complex to fit, especially when data is sparse, best option for extrapolation. | Easy to fit compare to LDPC, will yield good results within observed range. | Easier and most straight forward option, especially if focusing on inference at link scale. |
 +--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+

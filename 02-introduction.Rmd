@@ -466,7 +466,7 @@ ggplot(pred_60, aes(trt, pred, colour = trt)) +
 
 - Notice how uncertainty is propagated from the estimated curve parameters and the calculated derived quantities[^02-introduction-6].
 
-- Most of the lack of evidence about the differences between UN and F1, and UN and F2, arise from the high uncertainty on F1's maximum disease potential. It does not mean our analysis is wrong, but it exposes one of the difficulties of estimating multiple parameters of nonlinear models.
+- Most of the lack of evidence about the differences between UN and F1, and F1 and F2, arise from the high uncertainty on F1's maximum disease potential. It does not mean our analysis is wrong, but it exposes one of the difficulties of estimating multiple parameters of nonlinear models.
 
   - More about this on [Nonlinear Models for the Plant Sciences](https://claudiodsjr11.github.io/Nonlinear-Models-for-the-Plant-Sciences/index.html)
 
