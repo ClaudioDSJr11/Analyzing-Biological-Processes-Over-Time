@@ -1,0 +1,103 @@
+# Packages
+library(readxl) # Reading excel files
+library(tidyverse) # Wrangling
+library(msm) # Delta method
+library(lme4) # Linear mixed models
+library(emmeans) # emmeans for mult comp
+
+# Read the data
+df <- read_excel("Example_df1.xlsx")
+
+# Control trt factor order
+df <- df %>%
+  mutate(
+    trt = as.factor(trt),
+    trt = fct_relevel(trt, c("UN", "F1", "F2")))
+
+# Fit the model
+m2 <- lmer(y ~ trt*poly(day, 3, raw = TRUE) + (1|block), data = df)
+
+# Check model parameters - We will not look into model parameters or their contrasts here, do you know why??
+summary(m2)
+
+# Obtain predicted curves + Plot
+pred_df2 <- data.frame(
+  trt = as.factor(c(rep("UN", 60), rep("F1", 60), rep("F2", 60))),
+  day = c(rep(seq(1, 60, by = 1), 3)))
+
+pred_df2$trt <- fct_relevel(pred_df2$trt, c("UN", "F1", "F2"))
+
+pred_df2$pred <- predict(m2, newdata = pred_df2, re.form = NA)
+
+ggplot(pred_df2, aes(day, pred, colour = trt, group = trt)) +
+  geom_line() +
+  scale_color_manual(values = c("turquoise4", "#8B0000", "green4")) +
+  theme_bw() +
+  labs(y = "Severity (Prop.)", x = "Days", colour = "Treatment")
+
+# Obtain the maximum slope
+
+## Obtaining the quantities of interest (derived quantities)
+
+### Parameter values of each treatment level
+der_df2 <- data.frame(
+  trt = c("UN", "F1", "F2"),
+  b0 = c(fixef(m2)[1], fixef(m2)[1] + fixef(m2)[2], fixef(m2)[1] + fixef(m2)[3]),
+  b1 = c(fixef(m2)[4], fixef(m2)[4] + fixef(m2)[7], fixef(m2)[4] + fixef(m2)[8]),
+  b2 = c(fixef(m2)[5], fixef(m2)[5] + fixef(m2)[9], fixef(m2)[5] + fixef(m2)[10]),
+  b3 = c(fixef(m2)[6], fixef(m2)[6] + fixef(m2)[11], fixef(m2)[6] + fixef(m2)[12])
+)
+
+### x_inflection
+der_df2$x_inf <- -(der_df2$b2/(3*der_df2$b3))
+
+### Which disease severity corresponds to the maximum (y_inflection)?
+der_df2 <- der_df2 %>%
+  mutate(y_inf = case_when(
+    trt == "UN" ~ pred_df2[pred_df2$day == 25 & pred_df2$trt == "UN", 3],
+    trt == "F1" ~ pred_df2[pred_df2$day == 60 & pred_df2$trt == "F1", 3],
+    trt == "F2" ~ pred_df2[pred_df2$day == 21 & pred_df2$trt == "F2", 3]))
+
+### max_slope - For F1, since b3 > 0, we will use the maximum within the range 0 - 60 for x, which will be the same range in which the max for UN and F2 will happen
+der_df2 <- der_df2 %>%
+  mutate(max_s = case_when(
+    
+    trt %in% c("UN", "F2") ~ (der_df2$b1 + der_df2$b2*(2*der_df2$x_inf) + der_df2$b3*(3*(der_df2$x_inf)^2)),
+    
+    trt == "F1" ~ (der_df2$b1 + der_df2$b2*(2*60) + der_df2$b3*(3*(60)^2))))
+
+der_df2 <- der_df2 %>%
+  mutate(se = case_when(
+    trt == "UN" ~ deltamethod(~ x4 + x5*(2*24.7) + x6*(3*(24.7)^2), fixef(m2), vcov(m2)),
+    trt == "F1" ~ deltamethod(~ (x4 + x7) + (x5 + x9)*(2*60) + (x6 + x11)*(3*(60)^2), fixef(m2), vcov(m2)),
+    trt == "F2" ~ deltamethod(~ (x4 + x8) + (x5 + x10)*(2*20.6) + (x6 + x12)*(3*(20.6)^2), fixef(m2), vcov(m2))))
+
+der_df2_vis <- der_df2[, c(1, 6, 8, 7, 9)]
+
+print(der_df2_vis) # Visualization
+
+#### Max slope contrast
+cont_s2 <- data.frame(
+  contrast = c("UN-F1", "UN-F2", "F1-F2"),
+  z = c(
+    
+    (der_df2$max_s[1] - der_df2$max_s[2])/(deltamethod(~ (x4 + x5*(2*24.7) + x6*(3*(24.7)^2)) - ((x4 + x7) + (x5 + x9)*(2*60) + (x6 + x11)*(3*(60)^2)), fixef(m2), vcov(m2))),
+    
+    (der_df2$max_s[1] - der_df2$max_s[3])/(deltamethod(~ (x4 + x5*(2*24.7) + x6*(3*(24.7)^2)) - ((x4 + x8) + (x5 + x10)*(2*20.6) + (x6 + x12)*(3*(20.6)^2)), fixef(m2), vcov(m2))),
+    
+    (der_df2$max_s[2] - der_df2$max_s[3])/(deltamethod(~ ((x4 + x7) + (x5 + x9)*(2*60) + (x6 + x11)*(3*(60)^2)) - ((x4 + x8) + (x5 + x10)*(2*20.6) + (x6 + x12)*(3*(20.6)^2)), fixef(m2), vcov(m2)))
+    
+  )
+)
+
+cont_s2$p_value <- 2*pnorm(abs(cont_s2$z), lower.tail = FALSE)
+
+# Predicted disease severity at day 60
+pred60_2 <- data.frame(emmeans(m2, ~ trt | day, at = list(day = 60)))
+
+ggplot(pred60_2, aes(trt, emmean, colour = trt)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = lower.CL, ymax = upper.CL), width = 0.1) +
+  scale_color_manual(values = c("turquoise4", "#8B0000", "green4")) +
+  labs(y = "Severity (Prop.) at day 60", x = "Treatments", colour = "Treatment") +
+  theme_bw()
