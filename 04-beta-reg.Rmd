@@ -18,6 +18,22 @@ You can also learn more about Generalized Linear Models (GLMs) here: @stroup2024
 
 Script and data [here!](https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time/tree/main/hands_on_material)
 
+<br><br>
+
+Questions:
+
+- Check the slopes on the link scale, what they mean? Do you think the contrast results makes sense? (slopes: slopes3; contrast: slope_link_cont)
+
+- Get predicted curves and check then. Check both at the link scale (pred_df3\$pred_l) and response scale (pred_df3\$pred_p).
+
+- Check the derived quantities, what do you think of the inflection point in y (y_inf) and the maximum slope (max_s)? (der_df3)
+
+- Check the contrasts of the maximum slope, couple that with the predicted curves in the response scale, which treatment is being more effective in suppressing the epidemic? (contrasts: cont_s3; curves: pred_df3\$pred_p)
+
+- Did the contrast change from the slopes at the link scale and the slopes at the response scale?
+
+- What the prediction at day 60 tell you? Does it make sense? (pred60_3)
+
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 # Packages
 library(readxl) # Reading excel files
@@ -63,7 +79,7 @@ ggplot(pred_df3, aes(day, pred_p, colour = trt, group = trt)) +
 
 ## We can compare the slope on the link scale:
 slopes_link <- emtrends(m3, ~ trt, var = "day")
-pairs(slopes_link)
+slope_link_cont <- pairs(slopes_link, adjust = "none")
 
 slopes3 <- data.frame(slopes_link)
 

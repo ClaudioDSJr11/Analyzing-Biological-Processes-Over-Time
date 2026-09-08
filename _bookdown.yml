@@ -10,7 +10,8 @@ rmd_files:
   - "02-introduction.Rmd"
   - "03-polynomial.Rmd"
   - "04-beta-reg.Rmd"
-  - "05-references.Rmd"
+  - "05-discussion.Rmd"
+  - "06-references.Rmd"
 
 language:
   ui:

@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="hands-on-polynomial-regression.html"/>
-<link rel="next" href="references.html"/>
+<link rel="next" href="discussion.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -185,7 +185,12 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4" data-path="hands-on-polynomial-regression.html"><a href="hands-on-polynomial-regression.html"><i class="fa fa-check"></i><b>4</b> Hands-on: Polynomial regression</a></li>
 <li class="chapter" data-level="5" data-path="hands-on-beta-regression.html"><a href="hands-on-beta-regression.html"><i class="fa fa-check"></i><b>5</b> Hands-on: Beta regression</a></li>
-<li class="chapter" data-level="6" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>6</b> References</a></li>
+<li class="chapter" data-level="6" data-path="discussion.html"><a href="discussion.html"><i class="fa fa-check"></i><b>6</b> Discussion</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="discussion.html"><a href="discussion.html#how-the-results-change"><i class="fa fa-check"></i><b>6.1</b> How the results change?</a></li>
+<li class="chapter" data-level="6.2" data-path="discussion.html"><a href="discussion.html#summary"><i class="fa fa-check"></i><b>6.2</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>7</b> References</a></li>
 </ul>
 
       </nav>
@@ -214,6 +219,16 @@ div.csl-indent {
 <p>More about it here: <a href="https://www.k-state.edu/digital-ag-advanced-analytics/events/linear-mixed-models-2026.html">Fundamentals of Linear Mixed Models for Designed Experiments</a></p>
 <p>You can also learn more about Generalized Linear Models (GLMs) here: <span class="citation">Stroup et al. (2024)</span></p>
 <p>Script and data <a href="https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time/tree/main/hands_on_material">here!</a></p>
+<p><br><br></p>
+<p>Questions:</p>
+<ul>
+<li><p>Check the slopes on the link scale, what they mean? Do you think the contrast results makes sense? (slopes: slopes3; contrast: slope_link_cont)</p></li>
+<li><p>Get predicted curves and check then. Check both at the link scale (pred_df3$pred_l) and response scale (pred_df3$pred_p).</p></li>
+<li><p>Check the derived quantities, what do you think of the inflection point in y (y_inf) and the maximum slope (max_s)? (der_df3)</p></li>
+<li><p>Check the contrasts of the maximum slope, couple that with the predicted curves in the response scale, which treatment is being more effective in suppressing the epidemic? (contrasts: cont_s3; curves: pred_df3$pred_p)</p></li>
+<li><p>Did the contrast change from the slopes at the link scale and the slopes at the response scale?</p></li>
+<li><p>What the prediction at day 60 tell you? Does it make sense? (pred60_3)</p></li>
+</ul>
 <details class=chunk-details><summary class=chunk-summary><span class=chunk-summary-text>Code</span></summary>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="hands-on-beta-regression.html#cb14-1" tabindex="-1"></a><span class="co"># Packages</span></span>
 <span id="cb14-2"><a href="hands-on-beta-regression.html#cb14-2" tabindex="-1"></a><span class="fu">library</span>(readxl) <span class="co"># Reading excel files</span></span>
@@ -259,7 +274,7 @@ div.csl-indent {
 <span id="cb14-42"><a href="hands-on-beta-regression.html#cb14-42" tabindex="-1"></a></span>
 <span id="cb14-43"><a href="hands-on-beta-regression.html#cb14-43" tabindex="-1"></a><span class="do">## We can compare the slope on the link scale:</span></span>
 <span id="cb14-44"><a href="hands-on-beta-regression.html#cb14-44" tabindex="-1"></a>slopes_link <span class="ot">&lt;-</span> <span class="fu">emtrends</span>(m3, <span class="sc">~</span> trt, <span class="at">var =</span> <span class="st">&quot;day&quot;</span>)</span>
-<span id="cb14-45"><a href="hands-on-beta-regression.html#cb14-45" tabindex="-1"></a><span class="fu">pairs</span>(slopes_link)</span>
+<span id="cb14-45"><a href="hands-on-beta-regression.html#cb14-45" tabindex="-1"></a>slope_link_cont <span class="ot">&lt;-</span> <span class="fu">pairs</span>(slopes_link, <span class="at">adjust =</span> <span class="st">&quot;none&quot;</span>)</span>
 <span id="cb14-46"><a href="hands-on-beta-regression.html#cb14-46" tabindex="-1"></a></span>
 <span id="cb14-47"><a href="hands-on-beta-regression.html#cb14-47" tabindex="-1"></a>slopes3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(slopes_link)</span>
 <span id="cb14-48"><a href="hands-on-beta-regression.html#cb14-48" tabindex="-1"></a></span>
@@ -308,7 +323,7 @@ div.csl-indent {
         </div>
       </div>
 <a href="hands-on-polynomial-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="discussion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

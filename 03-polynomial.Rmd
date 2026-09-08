@@ -4,7 +4,7 @@ This is the model we will be working with:
 
 $$y_{ijk} = \beta_{0i} + \beta_{1i}x_j + \beta_{2i}x^2_j + \beta_{3i}x^3_j + b_k + \varepsilon_{ijk} \\[10pt] b_k \sim N(0, \sigma^2_b) \\[10pt] \varepsilon_{ijk} \sim N(0, \sigma^2)$$
 
-Where the response mean is modeled as a function of the *i*th level of the fungicide treatment at the *j*th day, with a random deviation caused by the *k*th block.
+This is a cubic polynomial. The response mean is modeled as a function of the *i*th level of the fungicide treatment at the *j*th day, with a random deviation caused by the *k*th block.
 
 We could also write this in distributional notation, as a marginal distribution:
 
@@ -15,6 +15,18 @@ Here we are treating block as a random effect, which means that our observed blo
 You can learn more about polynomials in here: @james2021
 
 Script and data [here!](https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time/tree/main/hands_on_material)
+
+<br><br>
+
+Questions:
+
+- Get predicted curves and check then. (pred_df2)
+
+- Check the derived quantities, what do you think of the inflection point in y (y_inf) and the maximum slope (max_s)? (der_df2_vis)
+
+- Check the contrasts of the maximum slope, couple that with the predicted curves, which treatment is being more effective in suppressing the epidemic? (contrasts: cont_s2; curves: pred_df2)
+
+- What the prediction at day 60 tell you? Does it make sense? (pred60_2)
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE}
 # Packages
@@ -93,6 +105,9 @@ der_df2 <- der_df2 %>%
 
 der_df2_vis <- der_df2[, c(1, 6, 8, 7, 9)]
 
+der_df2_vis$max_s_ci.ub <- der_df2_vis$max_s + 1.96*der_df2_vis$se
+der_df2_vis$max_s_ci.lb <- der_df2_vis$max_s - 1.96*der_df2_vis$se
+
 print(der_df2_vis) # Visualization
 
 #### Max slope contrast
@@ -109,7 +124,7 @@ cont_s2 <- data.frame(
   )
 )
 
-cont_s2$p_value <- 2*pnorm(abs(cont_s2$z), lower.tail = FALSE)
+cont_s2$p_value <- round(2*pnorm(abs(cont_s2$z), lower.tail = FALSE), 4)
 
 # Predicted disease severity at day 60
 pred60_2 <- data.frame(emmeans(m2, ~ trt | day, at = list(day = 60)))

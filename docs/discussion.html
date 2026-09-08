@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Pre-workshop | Analyzing Biological Processes Over Time</title>
-  <meta name="description" content="Chapter 2 Pre-workshop | Analyzing Biological Processes Over Time" />
+  <title>Chapter 6 Discussion | Analyzing Biological Processes Over Time</title>
+  <meta name="description" content="Chapter 6 Discussion | Analyzing Biological Processes Over Time" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Pre-workshop | Analyzing Biological Processes Over Time" />
+  <meta property="og:title" content="Chapter 6 Discussion | Analyzing Biological Processes Over Time" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Pre-workshop | Analyzing Biological Processes Over Time" />
+  <meta name="twitter:title" content="Chapter 6 Discussion | Analyzing Biological Processes Over Time" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="introduction-and-applied-example.html"/>
+<link rel="prev" href="hands-on-beta-regression.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -208,88 +208,228 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="pre-workshop" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Pre-workshop<a href="pre-workshop.html#pre-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="how-to-make-the-most-of-this-workshop" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> How to make the most of this workshop?<a href="pre-workshop.html#how-to-make-the-most-of-this-workshop" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="discussion" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Discussion<a href="discussion.html#discussion" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="how-the-results-change" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> How the results change?<a href="discussion.html#how-the-results-change" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
-<li><p>Ask questions! Do not take unresolved doubts home, they stink!</p></li>
-<li><p>Use the material afterwards. This material was created to be used as a guide post workshop, use it!</p></li>
-<li><p>Code is important, but our focus today is on concepts and interpretation. The code is provided so you can focus on understanding what the models are doing.</p></li>
+<li><p>LDPC was the only method that allowed us to check the epidemic meaningful parameters <span class="math inline">\(K\)</span>, <span class="math inline">\(y_0\)</span>, and <span class="math inline">\(r\)</span>.</p></li>
+<li><p>Beta and polynomial regression do not have parameters with direct biological meaning.</p></li>
+<li><p>We calculated derived quantities with similar meanings across methods, let’s check then together.</p></li>
 </ul>
 <p><br><br></p>
-</div>
-<div id="things-to-keep-in-mind" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Things to keep in mind:<a href="pre-workshop.html#things-to-keep-in-mind" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Inflection points:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Der.Q</th>
+<th align="left">Trt</th>
+<th align="right">LDPC</th>
+<th align="right">Poly</th>
+<th align="right">Beta</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">y_inflection</td>
+<td align="left">UN</td>
+<td align="right">0.5009371</td>
+<td align="right">0.5022986</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="even">
+<td align="left">y_inflection</td>
+<td align="left">F1</td>
+<td align="right">0.3559040</td>
+<td align="right">1.3948893</td>
+<td align="right">0.5</td>
+</tr>
+<tr class="odd">
+<td align="left">y_inflection</td>
+<td align="left">F2</td>
+<td align="right">0.1094307</td>
+<td align="right">0.1139722</td>
+<td align="right">0.5</td>
+</tr>
+</tbody>
+</table>
 <ul>
-<li><p>This is an introduction, and therefore the focus is you having experience with these models and what they can produce.</p></li>
-<li><p>Our example data are considerably well behaved. Real disease progress data can be much messier. We will discuss some of these complications, but solving them is beyond today’s scope.</p></li>
-<li><p>Coding is not our focus in this workshop, all code is provided. We will focus on three different models and their results.</p></li>
-<li><p>Please, keep in mind we have future workshops that expand in different parts of this workshop:</p>
+<li><p>The inflection of a logistic is bounded between <span class="math inline">\(y_0\)</span> and <span class="math inline">\(K\)</span>. When <span class="math inline">\(y_0\)</span> represents the disease level at <span class="math inline">\(t = 0\)</span> (approximately 0), ensuring <span class="math inline">\(y0 &lt; K/2\)</span>, the inflection happens at <span class="math inline">\(K/2\)</span>.</p></li>
+<li><p>The inflection of the polynomial regression has no bounds and is determined by the estimated coefficients, it is not constrained by the time of observation or the response range.</p></li>
+<li><p>The inflection point is determined by the choice of link function and predictor. With a logit link and a linear predictor, the inflection occurs at <span class="math inline">\(\mu = 0.5\)</span>. These two components determine the trajectory shape. Additionally, the conditional mean is bounded within (0, 1) given the support of the Beta distribution.</p>
 <ul>
-<li><p>Fundamentals of linear mixed models for designed experiments -&gt; 09/19 and 09/20</p>
-<ul>
-<li>Registration open: <a href="https://www.k-state.edu/digital-ag-advanced-analytics/events/linear-mixed-models-2026.html">Fundamentals of Linear Mixed Models for Designed Experiments</a></li>
-</ul></li>
-<li><p>Nonlinear models for the plant sciences -&gt; Spring 2027</p>
-<ul>
-<li>Material from 2026 available online: <a href="https://claudiodsjr11.github.io/Nonlinear-Models-for-the-Plant-Sciences/index.html">Nonlinear Models for the Plant Sciences</a></li>
-</ul></li>
+<li>Notice something important: The inverse logit (our <span class="math inline">\(\mu\)</span>) is the same function as the logistic regression:</li>
 </ul></li>
 </ul>
-<p><br><br></p>
-</div>
-<div id="notation-guide" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Notation guide<a href="pre-workshop.html#notation-guide" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>We can write the same linear model using different notations, but preserving the same meaning. In this workshop, we will primarily use scalar and probabilistic notation for clarity. Vector and matrix notation are included here for reference. All notations below assume normally distributed errors.</p>
-<p><span class="math display">\[ \varepsilon_i \sim N(0, \sigma^2) \]</span></p>
-<p>The Multivariate Normal distribution (MVN) is a compact way to represent multiple normally distributed observations together. This distribution shows up when we pile multiple random variables together in vector and matrix notation.</p>
-<p><br><br></p>
-<p>Scalar notation - Represents a single number</p>
-<p><span class="math display">\[ y_i = \beta_0 + \beta_1x_i + \varepsilon_i \\ \varepsilon_i \sim N(0, \sigma^2) \]</span></p>
-<p>Where:</p>
+<p><span class="math display">\[\frac{1}{1 + e^{-(\beta_0 + \beta_1x_i)}}\]</span></p>
 <ul>
-<li><p><span class="math inline">\(\beta_0\)</span> represents the intercept, the value of <span class="math inline">\(y_i\)</span> when <span class="math inline">\(x_i = 0\)</span>;</p></li>
-<li><p><span class="math inline">\(\beta_1\)</span> represents the slope, the change in <span class="math inline">\(y_i\)</span> caused by changing one unit in <span class="math inline">\(x_i\)</span>;</p></li>
-<li><p><span class="math inline">\(\varepsilon_i\)</span> represents the residual, which we assume to arise from a normal distribution with mean/expectation 0 and variance <span class="math inline">\(\sigma^2\)</span>;</p></li>
-<li><p><span class="math inline">\(y_i\)</span> represents the response variable and <span class="math inline">\(x_i\)</span> represents the predictor variable.</p></li>
+<li><p>Why not compare inflection in x? We could, but recall the polynomial regresion:</p>
+<ul>
+<li>We assumed that the inflection for F1 was at x = 60, bounding it between 0 and 60, but we can’t know for sure once the function is convex (happy face).</li>
+</ul></li>
 </ul>
+<table>
+<colgroup>
+<col width="5%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="14%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">trt</th>
+<th align="right">x_inf</th>
+<th align="right">max_s</th>
+<th align="right">y_inf</th>
+<th align="right">se</th>
+<th align="right">max_s_ci.ub</th>
+<th align="right">max_s_ci.lb</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">UN</td>
+<td align="right">24.69112</td>
+<td align="right">0.0339961</td>
+<td align="right">0.5022986</td>
+<td align="right">0.0036146</td>
+<td align="right">0.0410807</td>
+<td align="right">0.0269114</td>
+</tr>
+<tr class="even">
+<td align="left">F1</td>
+<td align="right">-42.66029</td>
+<td align="right">0.0599295</td>
+<td align="right">1.3948893</td>
+<td align="right">0.0707342</td>
+<td align="right">0.1985686</td>
+<td align="right">-0.0787096</td>
+</tr>
+<tr class="odd">
+<td align="left">F2</td>
+<td align="right">20.63571</td>
+<td align="right">0.0092756</td>
+<td align="right">0.1139722</td>
+<td align="right">0.0041679</td>
+<td align="right">0.0174446</td>
+<td align="right">0.0011066</td>
+</tr>
+</tbody>
+</table>
 <p><br><br></p>
-<p>Vector notation - Represents a vector of numbers</p>
-<p><span class="math display">\[ \mathbf{y} = \beta_0\mathbf{1} + \beta_1\mathbf{x}+\boldsymbol{\varepsilon} \\[10pt] \begin{bmatrix} y_1 \\ y_2 \\ ... \\ y_n \end{bmatrix} = \beta_0 * \begin{bmatrix} 1 \\ 1 \\ ... \\ 1 \end{bmatrix} + \beta_1*\begin{bmatrix} x_1 \\ x_2 \\ ... \\ x_n \end{bmatrix} + \begin{bmatrix} \varepsilon_1 \\ \varepsilon_2 \\ ... \\ \varepsilon_n \end{bmatrix} \\[15pt] \boldsymbol{\varepsilon} \sim MVN(\mathbf{0}, \sigma^2\mathbf{I}) \]</span></p>
-<p>Here, the variance <span class="math inline">\(\sigma^2\mathbf{I}\)</span> represents the variance covariance matrix, where <span class="math inline">\(\mathbf{I}\)</span> is the identity matrix. For example, for a 3x3 identity matrix, this is how it looks like:</p>
-<p><span class="math display">\[\sigma^2\begin{bmatrix} 1 \ 0 \ 0 \\ 0 \ 1 \ 0 \\ 0 \ 0 \ 1 \end{bmatrix}\]</span></p>
-<p>With this matrix, we assume no correlation between our observed <span class="math inline">\(y_i\)</span>, in other words, independence. This can change by changing the matrix selected. A more general notation is <span class="math inline">\(\sigma^2\mathbf{\Sigma}\)</span>, where <span class="math inline">\(\mathbf{\Sigma}\)</span> represents a general matrix.</p>
-<p><br><br></p>
-<p>Matrix notation - Represents a matrix</p>
-<p><span class="math display">\[ \mathbf{y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon} \\ \boldsymbol{\varepsilon} \sim MVN(\mathbf{0}, \sigma^2\mathbf{I})  \]</span></p>
-<p><br><br></p>
-<p>Probabilistic notation - Represents the distribution that we are assuming, a clear way to make our assumptions transparent. The expected value, or mean, can be expressed using any of the previous notations. To follow the same structure of the workshop, scalar notation will be exemplified.</p>
-<p>In distributional notation, see how we demonstrate that the deterministic mathematical equation influences the expectation/mean. The variance corresponds to the error term previously introduced as <span class="math inline">\(\varepsilon_i \sim N(0, \sigma^2)\)</span>.</p>
-<p>This notation reads: Observations <span class="math inline">\(y_i\)</span> arise from a normal distribution with the expectation/mean <span class="math inline">\(\mu_i\)</span> controlled by our mathematical equation and a given variance <span class="math inline">\(\sigma^2\)</span>. This variance relates to the observational level variance.</p>
-<p>This notation emphasizes that the model is a statement about how data are generated, combining a deterministic structure with stochastic variability.</p>
-<p><span class="math display">\[ y_i \sim N(\mu_i, \sigma^2) \\ \mu_i = \beta_0 + \beta_1x_i \]</span></p>
+<p><strong>Maximum slopes:</strong></p>
+<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-66-1.png" alt="" width="672" /></p>
+<ul>
+<li><p>For treatments such as “UN” and “F2”, where the data show clearer patterns, the three modeling approaches produce very similar estimates of maximum slope.</p></li>
+<li><p>Comparing beta regression and the LDPC, the second shows greater uncertainty. This may reflect differences in model structure, the LDPC estimates three parameters that jointly determine the trajectory and maximum slope, whereas the beta regression with a linear predictor has a simpler mean structure.</p></li>
+</ul>
+<p><span class="math display">\[Slope_{max, \ LDPC} = \frac{Kr}{4} \\[10pt] Slope_{max, \ Beta} = \frac{\beta_1}{4}\]</span></p>
+<ul>
+<li><p>Derived quantities can be more sensitive to model choice than the curves themselves!</p></li>
+<li><p>For F1, where the data provide considerably less information about the trajectory, uncertainty in the polynomial maximum slope becomes very large. The flexibility and lack of biological constraints of the polynomial allow this uncertainty to propagate strongly into the derived quantity.</p></li>
+</ul>
 <p><br><br></p>
 <center>
-Models are Assumptions + Structure + Uncertainty!
+<strong>We are looking at the result of information in the data + model structure choice + assumption choice</strong>
 </center>
 <p><br><br></p>
-</div>
-<div id="glossary" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Glossary<a href="pre-workshop.html#glossary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Expectation = Mean - Where the distribution balances.</p>
-<p>Uncertainty = Degree of doubt or unpredictability - How unsure we are about that estimated value. Can refer to predictions or parameters.</p>
-<p>Estimation = The process of obtaining numerical values for the unknown quantities (parameters) of a model from observed data.</p>
-<p>Inference = Interpreting estimated parameters in the context of the population or data-generating process (model). Inference is made about non-observable quantities and involves quantifying uncertainty.</p>
-<p>Prediction = New data generated by the model, given covariates. A function of the model and stochastic variability.</p>
-<p>Data generating process = Process that we believe to generate our data. Involves mathematical model + stochastic component.</p>
-<p>Deterministic = Always produces the same result, not random.</p>
-<p>Stochastic = Random.</p>
-<p>Constraint = A restriction or boundary placed on model parameters. Often based on biological, physical, or logical consideration.</p>
-<p>Random variable = Numerical value arising from a probability distribution. Formally: A function that connects the outcome of a random experiment to real numbers.</p>
-<p>Support of a probability distribution = Values a random variable arising from this distribution can assume.</p>
-<p>Probability distribution = Mathematical description of the probabilities of events/results from a given sample space (all possible outcomes of a random experiment).</p>
+<p><strong>Predicted curves and prediction for day 60:</strong></p>
+<p><img src="Analyzing-Biological-Processes-Over-Time_files/figure-html/unnamed-chunk-67-1.png" alt="" width="672" /></p>
+<ul>
+<li><p>LDPC is constrained by <span class="math inline">\(K\)</span>, the curve stop growing and approaches the maximum potential at that point (slope = 0);</p></li>
+<li><p>The beta regression is constrained between 0 and 1 by the assumed distribution, coupled with the inverse logit, it produces this sigmoidal shape that increases toward 1.</p></li>
+<li><p>The polynomial regression is unconstrained, and higher orders can be very flexible. Within the observed range it behaves similar to the LDPC, but outside the observed range it produces nonsense trajectories.</p></li>
+<li><p>Important note:</p>
+<ul>
+<li><p>LDPC: If <span class="math inline">\(r = 0\)</span>, the curve stays at <span class="math inline">\(y_0\)</span>, if <span class="math inline">\(r &lt;0\)</span>, the curve decreases.</p></li>
+<li><p>Beta regression: In the response scale, If <span class="math inline">\(\beta_1 = 0\)</span>, the curve stays at <span class="math inline">\(\beta_0\)</span>, if <span class="math inline">\(\beta_1 &lt; 0\)</span>, the curve decreases toward 0.</p></li>
+</ul></li>
+</ul>
 <p><br><br></p>
+</div>
+<div id="summary" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Summary<a href="discussion.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<table style="width:99%;">
+<colgroup>
+<col width="14%" />
+<col width="29%" />
+<col width="25%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Point of discussion</th>
+<th align="center">Logistic DPC</th>
+<th align="center">Polynomial regression</th>
+<th align="center">Beta regression</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>Distribution adopted</strong></td>
+<td align="center"><p>Normal</p>
+<p>(Assumed)</p></td>
+<td align="center"><p>Normal</p>
+<p>(Assumed)</p></td>
+<td align="center">Beta</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Mean trajectory</strong></td>
+<td align="center">Logistic DPC equation</td>
+<td align="center">Cubic polynomial</td>
+<td align="center"><p>Link scale: Linear</p>
+<p>Response scale: Inverse logit</p></td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Mean boundaries</strong></td>
+<td align="center"><span class="math inline">\(y_0\)</span> and <span class="math inline">\(K\)</span></td>
+<td align="center">No boundaries</td>
+<td align="center">0 - 1 bounded</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Upper assymptote</strong></td>
+<td align="center"><span class="math inline">\(K\)</span></td>
+<td align="center">None (the sky is the limit!)</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Direct inference from model parameters</strong></td>
+<td align="center">Yes</td>
+<td align="center">Generally no</td>
+<td align="center"><p>Link scale: Yes</p>
+<p>Response scale: Maybe</p></td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Works well for extrapolation/forecast</strong></td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="center"><p>Maybe</p>
+<p>Approaches 0 or 1</p></td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Constant slope</strong></td>
+<td align="center">No</td>
+<td align="center">No</td>
+<td align="center"><p>Link scale: Yes</p>
+<p>Response scale: No</p></td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Main strenght</strong></td>
+<td align="center">Epidemiologically interpretable trajectory</td>
+<td align="center">Flexible description</td>
+<td align="center">Appropriate support + bounded mean</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Feasability</strong></td>
+<td align="center">Could be complex to fit, especially when data is sparse, best option for extrapolation.</td>
+<td align="center">Easy to fit compare to LDPC, will yield good results within observed range.</td>
+<td align="center">Easier and most straight forward option, especially if focusing on inference at link scale.</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -298,8 +438,8 @@ Models are Assumptions + Structure + Uncertainty!
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="introduction-and-applied-example.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="hands-on-beta-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

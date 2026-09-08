@@ -1,0 +1,151 @@
+# Discussion
+
+## How the results change?
+
+- LDPC was the only method that allowed us to check the epidemic meaningful parameters $K$, $y_0$, and $r$.
+
+- Beta and polynomial regression do not have parameters with direct biological meaning.
+
+- We calculated derived quantities with similar meanings across methods, let's check then together.
+
+<br><br>
+
+**Inflection points:**
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+inf_vis <- data.frame(
+  Der.Q = c(rep("y_inflection", 3)),
+  Trt = c("UN", "F1", "F2"),
+  LDPC = c(slope_table$y_inf[1], slope_table$y_inf[2], slope_table$y_inf[3]),
+  Poly = c(der_df2$y_inf[1], der_df2$y_inf[2], der_df2$y_inf[3]),
+  Beta = c(der_df3$y_inf[1], der_df3$y_inf[2], der_df3$y_inf[3])
+)
+
+kable(inf_vis)
+```
+
+- The inflection of a logistic is bounded between $y_0$ and $K$. When $y_0$ represents the disease level at $t = 0$ (approximately 0), ensuring $y0 < K/2$, the inflection happens at $K/2$.
+
+- The inflection of the polynomial regression has no bounds and is determined by the estimated coefficients, it is not constrained by the time of observation or the response range.
+
+- The inflection point is determined by the choice of link function and predictor. With a logit link and a linear predictor, the inflection occurs at $\mu = 0.5$. These two components determine the trajectory shape. Additionally, the conditional mean is bounded within (0, 1) given the support of the Beta distribution.
+
+  - Notice something important: The inverse logit (our $\mu$) is the same function as the logistic regression:
+
+$$\frac{1}{1 + e^{-(\beta_0 + \beta_1x_i)}}$$
+
+- Why not compare inflection in x? We could, but recall the polynomial regresion:
+
+  - We assumed that the inflection for F1 was at x = 60, bounding it between 0 and 60, but we can't know for sure once the function is convex (happy face).
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+kable(der_df2_vis)
+```
+
+<br><br>
+
+**Maximum slopes:**
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+maxs_vis <- data.frame(
+  Model = c(rep("LDPC", 3), rep("Poly", 3), rep("Beta", 3)),
+  Trt = c(rep(c("UN", "F1", "F2"), 3)),
+  max_s = c(slope_table$max_s[1], slope_table$max_s[2], slope_table$max_s[3], der_df2_vis$max_s[1], der_df2_vis$max_s[2], der_df2_vis$max_s[3], der_df3$max_s[1], der_df3$max_s[2], der_df3$max_s[3]),
+  
+  ci_ub = c(slope_table$max_s_ub[1], slope_table$max_s_ub[2], slope_table$max_s_ub[3], der_df2_vis$max_s_ci.ub[1], der_df2_vis$max_s_ci.ub[2], der_df2_vis$max_s_ci.ub[3], der_df3$CI.ub[1], der_df3$CI.ub[2], der_df3$CI.ub[3]),
+  
+  ci_lb = c(slope_table$max_s_lb[1], slope_table$max_s_lb[2], slope_table$max_s_lb[3], der_df2_vis$max_s_ci.lb[1], der_df2_vis$max_s_ci.lb[2], der_df2_vis$max_s_ci.lb[3], der_df3$CI.lb[1], der_df3$CI.lb[2], der_df3$CI.lb[3])
+)
+
+maxs_vis <- maxs_vis %>%
+  mutate(Trt = fct_relevel(Trt, c("UN", "F1", "F2")),
+         Model = fct_relevel(Model, c("LDPC", "Poly", "Beta")))
+
+ggplot(maxs_vis, aes(Model, max_s, colour = Trt)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = ci_lb, ymax = ci_ub), width = 0.1) +
+  scale_color_manual(values = c("turquoise4", "#8B0000", "green4")) +
+  labs(y = "Maximum slope", x = "Models", colour = "Treatment") +
+  facet_wrap(~ Trt) +
+  theme_bw()
+```
+
+- For treatments such as "UN" and "F2", where the data show clearer patterns, the three modeling approaches produce very similar estimates of maximum slope.
+
+- Comparing beta regression and the LDPC, the second shows greater uncertainty. This may reflect differences in model structure, the LDPC estimates three parameters that jointly determine the trajectory and maximum slope, whereas the beta regression with a linear predictor has a simpler mean structure.
+
+$$Slope_{max, \ LDPC} = \frac{Kr}{4} \\[10pt] Slope_{max, \ Beta} = \frac{\beta_1}{4}$$
+
+- Derived quantities can be more sensitive to model choice than the curves themselves!
+
+- For F1, where the data provide considerably less information about the trajectory, uncertainty in the polynomial maximum slope becomes very large. The flexibility and lack of biological constraints of the polynomial allow this uncertainty to propagate strongly into the derived quantity.
+
+<br><br>
+
+<center>**We are looking at the result of information in the data + model structure choice + assumption choice**</center>
+
+<br><br>
+
+**Predicted curves and prediction for day 60:**
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+ggplot(pred_df, aes(day, pred, group = trt)) +
+  geom_line(aes(colour = "LDPC", linetype = "LDPC"), linewidth = 1) +
+  geom_line(data = pred_df2, aes(day, pred, group = trt, colour = "Polynomial", linetype = "Polynomial"), linewidth = 1) +
+  geom_line(data = pred_df3, aes(day, pred_p, group = trt, colour = "Beta", linetype = "Beta"), linewidth = 1) +
+  facet_wrap(~trt) +
+  scale_colour_manual(values = c("LDPC" = "#9C0824", "Polynomial" = "#F5CA63", "Beta" = "#26456E")) +
+  scale_linetype_manual(values = c("LDPC" = "solid", "Polynomial" = "dashed", "Beta" = "dotted")) +
+  labs(colour = "Model", linetype = "Model") +
+  geom_vline(xintercept = 38, linetype = 2, linewidth = 0.5, colour = "darkgray") +
+  geom_vline(xintercept = 60, linetype = 2, linewidth = 0.2, colour = "black") +
+  theme_bw()
+```
+
+- LDPC is constrained by $K$, the curve stop growing and approaches the maximum potential at that point (slope = 0);
+
+- The beta regression is constrained between 0 and 1 by the assumed distribution, coupled with the inverse logit, it produces this sigmoidal shape that increases toward 1.
+
+- The polynomial regression is unconstrained, and higher orders can be very flexible. Within the observed range it behaves similar to the LDPC, but outside the observed range it produces nonsense trajectories.
+
+- Important note:
+
+  - LDPC: If $r = 0$, the curve stays at $y_0$, if $r <0$, the curve decreases.
+
+  - Beta regression: In the response scale, If $\beta_1 = 0$, the curve stays at $\beta_0$, if $\beta_1 < 0$, the curve decreases toward 0.
+
+<br><br>
+
+## Summary
+
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| Point of discussion                        | Logistic DPC                                                                            | Polynomial regression                                                       | Beta regression                                                                             |
++:==========================================:+:=======================================================================================:+:===========================================================================:+:===========================================================================================:+
+| **Distribution adopted**                   | Normal                                                                                  | Normal                                                                      | Beta                                                                                        |
+|                                            |                                                                                         |                                                                             |                                                                                             |
+|                                            | (Assumed)                                                                               | (Assumed)                                                                   |                                                                                             |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| **Mean trajectory**                        | Logistic DPC equation                                                                   | Cubic polynomial                                                            | Link scale: Linear                                                                          |
+|                                            |                                                                                         |                                                                             |                                                                                             |
+|                                            |                                                                                         |                                                                             | Response scale: Inverse logit                                                               |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| **Mean boundaries**                        | $y_0$ and $K$                                                                           | No boundaries                                                               | 0 - 1 bounded                                                                               |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| **Upper assymptote**                       | $K$                                                                                     | None (the sky is the limit!)                                                | 1                                                                                           |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| **Direct inference from model parameters** | Yes                                                                                     | Generally no                                                                | Link scale: Yes                                                                             |
+|                                            |                                                                                         |                                                                             |                                                                                             |
+|                                            |                                                                                         |                                                                             | Response scale: Maybe                                                                       |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| **Works well for extrapolation/forecast**  | Yes                                                                                     | No                                                                          | Maybe                                                                                       |
+|                                            |                                                                                         |                                                                             |                                                                                             |
+|                                            |                                                                                         |                                                                             | Approaches 0 or 1                                                                           |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| **Constant slope**                         | No                                                                                      | No                                                                          | Link scale: Yes                                                                             |
+|                                            |                                                                                         |                                                                             |                                                                                             |
+|                                            |                                                                                         |                                                                             | Response scale: No                                                                          |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| **Main strenght**                          | Epidemiologically interpretable trajectory                                              | Flexible description                                                        | Appropriate support + bounded mean                                                          |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+| **Feasability**                            | Could be complex to fit, especially when data is sparse, best option for extrapolation. | Easy to fit compare to LDPC, will yield good results within observed range. | Easier and most straight forward option, especially if focusing on inference at link scale. |
++--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+

@@ -74,6 +74,9 @@ der_df2 <- der_df2 %>%
 
 der_df2_vis <- der_df2[, c(1, 6, 8, 7, 9)]
 
+der_df2_vis$max_s_ci.ub <- der_df2_vis$max_s + 1.96*der_df2_vis$se
+der_df2_vis$max_s_ci.lb <- der_df2_vis$max_s - 1.96*der_df2_vis$se
+
 print(der_df2_vis) # Visualization
 
 #### Max slope contrast
@@ -90,7 +93,7 @@ cont_s2 <- data.frame(
   )
 )
 
-cont_s2$p_value <- 2*pnorm(abs(cont_s2$z), lower.tail = FALSE)
+cont_s2$p_value <- round(2*pnorm(abs(cont_s2$z), lower.tail = FALSE), 4)
 
 # Predicted disease severity at day 60
 pred60_2 <- data.frame(emmeans(m2, ~ trt | day, at = list(day = 60)))
