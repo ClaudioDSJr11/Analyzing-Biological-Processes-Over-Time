@@ -14,7 +14,7 @@ Here we are treating block as a random effect, which means that our observed blo
 
 You can learn more about polynomials in here: @james2021
 
-Script and data [here!](https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time/tree/main/hands_on_material)
+Script and data [here!](https://github.com/ClaudioDSJr11/Analyzing-Biological-Processes-Over-Time/blob/main/hands_on_material.zip)
 
 <br><br>
 
