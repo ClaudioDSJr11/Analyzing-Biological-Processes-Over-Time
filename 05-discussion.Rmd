@@ -149,3 +149,9 @@ ggplot(pred_df, aes(day, pred, group = trt)) +
 +--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
 | **Feasibility**                            | Could be complex to fit, especially when data is sparse, best option for extrapolation. | Easy to fit compare to LDPC, will yield good results within observed range. | Easier and most straight forward option, especially if focusing on inference at link scale. |
 +--------------------------------------------+-----------------------------------------------------------------------------------------+-----------------------------------------------------------------------------+---------------------------------------------------------------------------------------------+
+
+<br><br>
+
+## Please, take a time to leave your feedback:
+
+<center>[Feedback](https://docs.google.com/forms/d/e/1FAIpQLSdsqJSlmang2zOHrKr--INHKypNYGme348Dd1Pew-PUDMZrqw/viewform?usp=publish-editor)</center>
